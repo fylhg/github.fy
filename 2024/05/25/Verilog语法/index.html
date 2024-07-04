@@ -1,0 +1,810 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>verilog语法 | FY的博客</title><meta name="author" content="二马山石"><meta name="copyright" content="二马山石"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1.1 Verilog教程Verilog HDL（简称 Verilog ）是一种硬件描述语言，用于数字电路的系统设计。可对算法级、门级、开关级等多种抽象设计层次进行建模。 Verilog 继承了 C 语言的多种操作符和结构，与另一种硬件描述语言 VHDL 相比，语法不是很严格，代码更加简洁，更容易上手。 Verilog 不仅定义了语法，还对语法结构都定义了清晰的仿真语义。因此，Verilog 编写">
+<meta property="og:type" content="article">
+<meta property="og:title" content="verilog语法">
+<meta property="og:url" content="https://fylhg.github.io/github.fy/2024/05/25/Verilog%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="FY的博客">
+<meta property="og:description" content="1.1 Verilog教程Verilog HDL（简称 Verilog ）是一种硬件描述语言，用于数字电路的系统设计。可对算法级、门级、开关级等多种抽象设计层次进行建模。 Verilog 继承了 C 语言的多种操作符和结构，与另一种硬件描述语言 VHDL 相比，语法不是很严格，代码更加简洁，更容易上手。 Verilog 不仅定义了语法，还对语法结构都定义了清晰的仿真语义。因此，Verilog 编写">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picx.zhimg.com/v2-8914ff9e3185a4a0e1ac1f7b037e9cb8_720w.jpg?source=172ae18b">
+<meta property="article:published_time" content="2024-05-25T03:19:49.606Z">
+<meta property="article:modified_time" content="2024-05-31T15:14:12.253Z">
+<meta property="article:author" content="二马山石">
+<meta property="article:tag" content="verilog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picx.zhimg.com/v2-8914ff9e3185a4a0e1ac1f7b037e9cb8_720w.jpg?source=172ae18b"><link rel="shortcut icon" href="/github.fy/img/favicon.png"><link rel="canonical" href="https://fylhg.github.io/github.fy/2024/05/25/Verilog%E8%AF%AD%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/github.fy/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/github.fy/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'verilog语法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-05-31 23:14:12'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/github.fy/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/github.fy/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/github.fy/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/github.fy/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/github.fy/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/github.fy/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/github.fy/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/github.fy/link/"><i class="fa-fw fas fa-link"></i><span> 连接</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picx.zhimg.com/v2-8914ff9e3185a4a0e1ac1f7b037e9cb8_720w.jpg?source=172ae18b')"><nav id="nav"><span id="blog-info"><a href="/github.fy/" title="FY的博客"><img class="site-icon" src="/github.fy/img/1.jpg"/><span class="site-name">FY的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/github.fy/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/github.fy/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/github.fy/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/github.fy/link/"><i class="fa-fw fas fa-link"></i><span> 连接</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">verilog语法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-25T03:19:49.606Z" title="发表于 2024-05-25 11:19:49">2024-05-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-31T15:14:12.253Z" title="更新于 2024-05-31 23:14:12">2024-05-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/github.fy/categories/verilog/">verilog</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="verilog语法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-1-Verilog教程"><a href="#1-1-Verilog教程" class="headerlink" title="1.1 Verilog教程"></a>1.1 Verilog教程</h1><p>Verilog HDL（简称 Verilog ）是一种硬件描述语言，用于数字电路的系统设计。可对算法级、门级、开关级等多种抽象设计层次进行建模。</p>
+<p>Verilog 继承了 C 语言的多种操作符和结构，与另一种硬件描述语言 VHDL 相比，语法不是很严格，代码更加简洁，更容易上手。</p>
+<p>Verilog 不仅定义了语法，还对语法结构都定义了清晰的仿真语义。因此，Verilog 编写的数字模型就能够使用 Verilog 仿真器进行验证。</p>
+<hr>
+<h2 id="谁适合阅读本教程"><a href="#谁适合阅读本教程" class="headerlink" title="谁适合阅读本教程"></a>谁适合阅读本教程</h2><p>本教程主要针对 Verilog 初学者打造。</p>
+<p>有一定 Verilog 基础的同学也可以对进阶篇、实例篇进行学习、交流。</p>
+<hr>
+<h2 id="阅读本教程前，你需要了解的知识"><a href="#阅读本教程前，你需要了解的知识" class="headerlink" title="阅读本教程前，你需要了解的知识"></a>阅读本教程前，你需要了解的知识</h2><p>在学习本教程之前，你需要了解数字电路的一些基本信息。</p>
+<p>如果你对 <a target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-tutorial.html">C 语言</a>有一定的了解，有助于 Verilog 的快速上手。</p>
+<h3 id="第一个-Verilog-设计"><a href="#第一个-Verilog-设计" class="headerlink" title="第一个 Verilog 设计"></a>第一个 Verilog 设计</h3><p>4 位宽 10 进制计数器：</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>module counter10(<br>        &#x2F;&#x2F;端口定义<br>        input                   rstn,   &#x2F;&#x2F;复位端，低有效<br>        input                   clk,    &#x2F;&#x2F;输入时钟<br>        output [3:0]    cnt,    &#x2F;&#x2F;计数输出<br>        output                  cout);  &#x2F;&#x2F;溢出位</p>
+<p>        reg [3:0]               cnt_temp ;      &#x2F;&#x2F;计数器寄存器<br>        always@(posedge clk or negedge rstn) begin<br>                if(! rstn)begin         &#x2F;&#x2F;复位时，计时归0<br>                        cnt_temp        &lt;&#x3D; 4’b0 ;<br>                end<br>                else if (cnt_temp=&#x3D;4’d9) begin  &#x2F;&#x2F;计时10个cycle时，计时归0<br>                        cnt_temp        &lt;&#x3D;4’b000;<br>                end<br>                else begin                                      &#x2F;&#x2F;计时加1<br>                        cnt_temp        &lt;&#x3D; cnt_temp + 1’b1 ;<br>                end<br>        end</p>
+<p>        assign  cout = (cnt_temp=&#x3D;4’d9) ;       &#x2F;&#x2F;输出周期位<br>        assign  cnt  = cnt_temp ;                       &#x2F;&#x2F;输出实时计时器</p>
+<p>endmodule</p>
+<hr>
+<h2 id="Cat-Me"><a href="#Cat-Me" class="headerlink" title="Cat Me"></a>Cat Me</h2><p>本人从事过 FPGA 设计、 IC 设计。学生时代用 VHDL 语言设计比较多，目前一直用 Verilog 。为方便查询语法，也为其他学者提供便利的学习通道，特意写此教程。需要说明的是：</p>
+<ul>
+<li>(1) 教程内容是以自己曾经的学习角度进行撰写的，学习起来可能会容易些。其中有不妥之处还望指出，一起交流进步。</li>
+<li>(2) 当用 Verilog 设计完成数字模块后进行仿真时，需要在外部添加激励，激励文件叫 testbench。有时 testbench 设计可能比数字模块本身都复杂。所以前面在介绍 Verilog 基本语法时，几乎没有仿真。后面介绍行为级和时序级相关知识时，会多用仿真说明。</li>
+</ul>
+<blockquote>
+<p><strong>联系人</strong>：Think · In · Hardware</p>
+<p>全篇教程都是本人手动搜集、整理、编写的，所有设计仿真都有原创或改进。如果您从中受益，您的赞赏或关注将是最不耍流氓的支持，鼓励我饥饿的灵魂去撰写饱满的篇章。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/WechatIMG768.jpeg"></p>
+</blockquote>
+<h1 id="1-2-Verilog简介"><a href="#1-2-Verilog简介" class="headerlink" title="1.2 Verilog简介"></a>1.2 Verilog简介</h1><p>Verilog 具有很强的电路描述与建模能力，能从多个层次对数字系统进行描述和建模。因此，在简化硬件设计任务、提高设计效率与可靠性、语言易读性、层次化和结构化设计等方面展现了强大的生命力与潜力。</p>
+<h3 id="发展历史"><a href="#发展历史" class="headerlink" title="发展历史"></a>发展历史</h3><ul>
+<li>1983 年，Verilog 最初由 Gateway Design Automation 公司（GDA）的 Phil Moorby 创建，作为内部仿真器的语言，主要用于逻辑建模和仿真验证，被广泛使用。</li>
+<li>1989 年，GDA 公司被 Cadence 公司收购，Verilog 语言成为 Cadence 公司的私有财产。</li>
+<li>1990 年，Cadence 公司成立 OVI（Open Verilog International）组织，公开 Verilog 语言，促进 Verilog 向公众领域发展。</li>
+<li>1992 年，OVI 决定致力于将 Verilog OVI 标准推广为 IEEE（The Institute of Electrical and Electronics Engineers）标准。</li>
+<li>1995 年，OVI 的努力获得成功，IEEE 制定了 Verilog HDL 的第一个国际标准，即 IEEE Std 1364-1995，也称之为 Verilog 1.0。</li>
+<li>2001 年，IEEE 发布 Verilog 第二个标准（Verilog 2.0），即 IEEE Std 1364-2001, 简称为 Verilog-2001 标准。由于 Cadence 在集成电路设计领域的影响力及 Verilog 语言的简洁易用性，Verilog 成为电路设计中最流行的硬件描述语言。</li>
+</ul>
+<h3 id="主要特性"><a href="#主要特性" class="headerlink" title="主要特性"></a>主要特性</h3><p>下面是 Verilog 的主要特性：</p>
+<ul>
+<li>可采用 3 种不同的方式进行设计建模：行为级描述——使用过程化结构建模；数据流描述——使用连续赋值语句建模；结构化方式——使用门和模块例化语句描述。</li>
+<li>两类数据类型：线网（wire）数据类型与寄存器（reg）数据类型，线网表示物理元件之间的连线，寄存器表示抽象的数据存储元件。</li>
+<li>能够描述层次设计，可使用模块实例化描述任何层次。</li>
+<li>用户定义原语（UDP）创建十分灵活。原语既可以是组合逻辑，也可以是时序逻辑。</li>
+<li>可提供显示语言结构指定设计中的指定端口到端口的时延，以及路径时延和时序检查。</li>
+<li>Verilog 支持其他编程语言接口（PLI）进行进一步扩展。PLI 允许外部函数访问 Verilog 模块内部信息，为仿真提供了更加丰富的测试方法。</li>
+<li>同一语言可用于生成模拟激励和指定测试的约束条件。</li>
+<li>设计逻辑功能时，设计者可不用关心不影响逻辑功能的因素，例如工艺、温度等。</li>
+<li>……</li>
+</ul>
+<h3 id="主要应用"><a href="#主要应用" class="headerlink" title="主要应用"></a>主要应用</h3><p>专用集成电路（ASIC），就是具有专门用途和特殊功能的独立集成电路器件。</p>
+<p>Verilog 作为硬件描述语言，主要用来生成专用集成电路。</p>
+<p>主要通过 3 个途径来完成：</p>
+<p><strong>1、可编程逻辑器件</strong></p>
+<p>FPGA 和 CPLD 是实现这一途径的主流器件。他们直接面向用户，具有极大的灵活性和通用性，实现快捷，测试方便，开发效率高而成本较低。</p>
+<p><strong>2、半定制或全定制 ASIC</strong></p>
+<p>通俗来讲，就是利用 Verilog 来设计具有某种特殊功能的专用芯片。根据基本单元工艺的差异，又可分为门阵列 ASIC，标准单元 ASIC，全定制 ASIC。</p>
+<p><strong>3、混合 ASIC</strong></p>
+<p>主要指既具有面向用户的 FPGA 可编程逻辑功能和逻辑资源，同时也含有可方便调用和配置的硬件标准单元模块，如CPU，RAM，锁相环，乘法器等。</p>
+<h1 id="1-3-Verilog环境搭建"><a href="#1-3-Verilog环境搭建" class="headerlink" title="1.3 Verilog环境搭建"></a>1.3 Verilog环境搭建</h1><p>学习 Verilog 做仿真时，可选择不同仿真环境。FPGA 开发环境有 Xilinx 公司的 ISE（目前已停止更新），VIVADO；因特尔公司的 Quartus II；ASIC 开发环境有 Synopsys 公司的 VCS ；很多人也在用 Icarus Verilog 和 GTKwave 的方法，更加的轻便。</p>
+<p>虽然 ISE 或者 Quartus II 都会自带仿真器，但功能还是有欠缺。所以，这里介绍下 Quartus II + Modelsim 联合仿真的测试方法，运行环境为 64bit-win10 系统。</p>
+<h3 id="Quartus-II-安装"><a href="#Quartus-II-安装" class="headerlink" title="Quartus II 安装"></a>Quartus II 安装</h3><p>本次介绍使用的 Quartus 版本为 10.1。</p>
+<p>目前 Quartus II 官网已经没有 13.1 以下版本的安装包，大家可以安装 13.1 以上版本的软件。功能都是大同小异，下载地址：<a target="_blank" rel="noopener" href="https://fpgasoftware.intel.com/13.1/?edition=subscription&platform=windows">https://fpgasoftware.intel.com/13.1/?edition=subscription&platform=windows</a></p>
+<p>下载 13.1 以上的 quartus II 时，官网也会推荐相应版本的 Modelsim，一起下载即可。</p>
+<p>开始安装，修改安装路径，其他按照默认设置一步步操作即可。</p>
+<p>下图是成功安装的截图。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-install-1.png"></p>
+<p>如果提示需要 License file，如下图所示，则需要指定购买该软件时的 license 文件。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-install-2.png"></p>
+<p>如果 license 文件需要替换 Host-ID，只需要 license 文件中的 HOSTID 替换为 NIC 选项中随便一个 ID 即可，如下图红色框所示：</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-install-3.png"></p>
+<p>Quartus II 10.1 安装完还需要安装 Device，即安装支持各种可编程逻辑器件型号的库文件，否则 Quartus II 不能正常建立工程。</p>
+<p>安装路径需要选择 Quartus II 的安装路径，此时 Device 安装可自动识别 Quartus II。</p>
+<p>最新 Quartus II（例如 2016 版本）已经支持一套化安装了。</p>
+<h3 id="Modelsim-安装"><a href="#Modelsim-安装" class="headerlink" title="Modelsim 安装"></a>Modelsim 安装</h3><p>Modelsim 选择 modelsim-win64-10.1c-se 版本。</p>
+<p>也需要修改下安装路径，然后按照默认设置进行操作即可。</p>
+<p>安装完毕后可能提示需要重启电脑，重启即可。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-install-4.png"></p>
+<h3 id="建立-Quartus-II-工程"><a href="#建立-Quartus-II-工程" class="headerlink" title="建立 Quartus II 工程"></a>建立 Quartus II 工程</h3><p><strong>建立工程</strong></p>
+<p>File-&gt;New project Wizard</p>
+<p>设置工作路径与工程名字、top module名字。</p>
+<p>注意，路径与名字设置时，不能包含中文。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-install-5.png"></p>
+<p><strong>选择器件型号</strong></p>
+<p>我们只进行简单的仿真，不进行下载、烧录等，所以我们不用关心具体信号，随便选一种即可。</p>
+<p>然后一直点击 Next，直到 Finish。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-install-6.png"></p>
+<p><strong>新建 Verilog 源文件</strong></p>
+<p>下面就对 4 位宽 10 进制计数器进行简单的仿真。</p>
+<p>点击：File-&gt;New-&gt;Verilog HDL File-&gt;OK</p>
+<p>点击：File-&gt;Save As</p>
+<p>输入 module 名字为：counter10.v</p>
+<p>需要注意的是，top module 名字一定要和 project 名字一致，否则会报错（如图中所示）。</p>
+<p>把 Verilog 代码复制到文件 counter10.v 中，进行一键编译（实际包含了编译、综合、布局布线等）。</p>
+<p>报错时，可通过点击 Error log 来定位错误，进行修改，直至没有 Error。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-install-7.png"></p>
+<h3 id="Quartus-II-调用-Modelsim-仿真"><a href="#Quartus-II-调用-Modelsim-仿真" class="headerlink" title="Quartus II 调用 Modelsim 仿真"></a>Quartus II 调用 Modelsim 仿真</h3><p>仿真设置为 Modelsim-altera</p>
+<p>点击：Tool-&gt;Options-&gt;EDA Tool Options</p>
+<p>将 Modelsim 后面的地址改为 Modelsim 启动程序的路径。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-install-8.png"></p>
+<p><strong>选择仿真器</strong></p>
+<p>点击：Assignments -&gt; Simulation</p>
+<p>Tool name 选择 ModelSim，并设置 Format、Time scale 等，如图。。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-install-9.png"></p>
+<p><strong>写 testbench 文件</strong></p>
+<p>点击：Processing-&gt;start-&gt;Start TestBench Template Writer</p>
+<p>如果设置正确，会在工程路径 simulation&#x2F;modelsim 下产生 .vt 文件。</p>
+<p>.vt 文件模板已经给出了端口部分的代码、接口变量的声明和例化语句映射等。我们要做的就是将测试代码填入到 testbench 合适的位置。</p>
+<p>这里简单的写一下时钟、复位驱动代码，如下图所示。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-install-10.png"></p>
+<p><strong>将 testbench 添加到工程中</strong></p>
+<p>点击：Assignments -&gt; Settings -&gt; Simulation</p>
+<p>在 Compile test bench 选项中，选择 new，设置 Test bench name，并通过 File name 查找的方式，将上一步生成的 .vt 文件添加到工程中。</p>
+<p>需要注意的是，testbench 文件名字需要和 testbench 里的 top module 名字保持一致，否则后续启动 Modelsim 时会报错，不能进行正常的仿真。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/XFejkqOFS8VYO1jL.png"></p>
+<p><strong>重新一键编译</strong></p>
+<p>此时，你会发现，Tasks 栏编译的状态变成了问号，需要重新进行一键编译。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-install-12.png"></p>
+<p><strong>调用 Modelsim 仿真</strong></p>
+<p>点击：Tools-&gt;Run simulation Tool-&gt;RTL Simulation</p>
+<p>这时就会自动启动 Modelsim 软件。</p>
+<p>Modelsim 操作这里不做具体介绍。</p>
+<p>由仿真图可知，我们的设计完成了 10 进制计数的基本功能。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-install-13.png"></p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>记忆中，Quartus II + Modelsim 的联合仿真功能既强大，又安装方便。几年后重新进行此过程，发现步骤也有些许繁琐，花费了我一晚上的时间来搞定。很多细节也在上面提出，多多注意就好。不过，大家以后有机会进行大型的数字模块仿真时，就会发现此方法的有效性。</p>
+<p>在接下来的教程里，有些简单的仿真可能用其他软件进行，截图界面可能与 Modelsim 不一致。大家看到后不用怀疑仿真的准确性，这里特别说明。</p>
+<p>设计模块与 testbench 源码也会全部给出，大家完全可以自己仿真、验证。</p>
+<h1 id="1-4-Verilog设计方法"><a href="#1-4-Verilog设计方法" class="headerlink" title="1.4 Verilog设计方法"></a>1.4 Verilog设计方法</h1><h3 id="设计方法"><a href="#设计方法" class="headerlink" title="设计方法"></a>设计方法</h3><p>Verilog 的设计多采用自上而下的设计方法（top-down）。即先定义顶层模块功能，进而分析要构成顶层模块的必要子模块；然后进一步对各个模块进行分解、设计，直到到达无法进一步分解的底层功能块。这样，可以把一个较大的系统，细化成多个小系统，从时间、工作量上分配给更多的人员去设计，从而提高了设计速度，缩短了开发周期。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-design-method-1.png"></p>
+<h3 id="设计流程"><a href="#设计流程" class="headerlink" title="设计流程"></a>设计流程</h3><p><img src="https://www.runoob.com/wp-content/uploads/2020/09/vlg-design-method-2.png"></p>
+<p>Verilog 的设计流程，一般包括以下几个步骤：</p>
+<p><strong>需求分析</strong></p>
+<p>工作人员需要对用户提出的功能要求进行分析理解，做出电路系统的整体规划，形成详细的技术指标，确定初步方案。例如，要设计一个电子屏，需要考虑供电方式、工作频率、产品体积、成本、功耗等，电路实现采用 ASIC 还是选用 FPGA&#x2F;CPLD 器件等。</p>
+<p><strong>功能划分</strong></p>
+<p>正确地分析了用户的电路需求后，就可以进行逻辑功能的总体设计，设计整个电路的功能、接口和总体结构，考虑功能模块的划分和设计思路，各子模块的接口和时序（包括接口时序和内部信号的时序）等，向项目组成员合理分配子模块设计任务。</p>
+<p><strong>文本描述</strong></p>
+<p>可以用任意的文本编辑器，也可以用专用的 HDL 编辑环境，对所需求的数字电路进行设计建模，保存为 .v 文件。</p>
+<p><strong>功能仿真（前仿真）</strong></p>
+<p>对建模文件进行编译，对模型电路进行功能上的仿真验证，查找设计的错误并修正。</p>
+<p>此时的仿真验证并没有考虑到信号的延迟等一些 timing 因素，只是验证逻辑上的正确性。</p>
+<p><strong>逻辑综合</strong></p>
+<p>综合（synthesize），就是在标准单元库和特定的设计约束的基础上，将设计的高层次描述（Verilog 建模）转换为门级网表的过程。逻辑综合的目的是产生物理电路门级结构，并在逻辑、时序上进行一定程度的优化，寻求逻辑、面积、功耗的平衡，增强电路的可测试性。</p>
+<p>但不是所有的 Verilog 语句都是可以综合成逻辑单元的，例如时延语句。</p>
+<p><strong>布局布线</strong></p>
+<p>根据逻辑综合出的网表与约束文件，利用厂家提供的各种基本标准单元库，对门级电路进行布局布线。至此，已经将 Verilog 设计的数字电路，设计成由标准单元库组成的数字电路。</p>
+<p><strong>时序仿真（后仿真）</strong></p>
+<p>布局布线后，电路模型中已经包含了时延信息。利用在布局布线中获得的精确参数，用仿真软件验证电路的时序。单元器件的不同、布局布线方案都会给电路的时序造成影响，严重时会出现错误。出错后可能就需要重新修改 RTL（寄存器传输级描述，即 Verilog 初版描述），重复后面的步骤。这样的过程可能反复多次，直至错误完全排除。</p>
+<p><strong>FPGA&#x2F;CPLD 下载或 ASIC 制造工艺生产</strong></p>
+<p>完成上面所有步骤后，就可以通过开发工具将设计的数字电路目标文件下载到 FPGA&#x2F;CPLD 芯片中，然后在电路板上进行调试、验证。</p>
+<p>如果要在 ASIC 上实现，则需要制造芯片。一般芯片制造时，也需要先在 FPGA 板卡上进行逻辑功能的验证。</p>
+<h1 id="2-1-Verilog基础语法"><a href="#2-1-Verilog基础语法" class="headerlink" title="2.1 Verilog基础语法"></a>2.1 Verilog基础语法</h1><h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><p>Verilog 是区分大小写的。</p>
+<p>格式自由，可以在一行内编写，也可跨多行编写。</p>
+<p>每个语句必须以分号为结束符。空白符（换行、制表、空格）都没有实际的意义，在编译阶段可忽略。例如下面两中编程方式都是等效的。</p>
+<p><strong>不换行（不推荐）</strong></p>
+<h3 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h3><p>wire [1:0]  results ;assign results = (a =&#x3D; 1’b0) ? 2’b01 ： (b=&#x3D;1’b0) ? 2’b10 ： 2’b11 ;  </p>
+<p><strong>换行（推荐）</strong></p>
+<h3 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a>实例</h3><p>wire [1:0]  results ;<br>assign      results = (a =&#x3D; 1’b0) ? 2’b01 ：<br>            (b=&#x3D;1’b0) ? 2’b10 ：<br>                2’b11 ;  </p>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>Verilog 中有 2 种注释方式:</p>
+<p>用 &#x2F;&#x2F; 进行单行注释：</p>
+<p>reg [3:0] counter ;  &#x2F;&#x2F; A definition of counter register</p>
+<p>用 &#x2F;* 与 *&#x2F; 进行跨行注释:</p>
+<p>wire [11:0]  addr ;<br>&#x2F;*<br>Next are notes with multiple lines.<br>Codes here cannot be compiled.<br>*&#x2F;<br>assign   addr &#x3D; 12’b0 ;</p>
+<h3 id="标识符与关键字"><a href="#标识符与关键字" class="headerlink" title="标识符与关键字"></a>标识符与关键字</h3><p>标识符（identifier）可以是任意一组字母、数字、$ 符号和 _(下划线)符号的合，但标识符的第一个字符必须是字母或者下划线，不能以数字或者美元符开始。</p>
+<p>另外，标识符是区分大小写的。</p>
+<p>关键字是 Verilog 中预留的用于定义语言结构的特殊标识符。</p>
+<p>Verilog 中关键字全部为小写。</p>
+<h1 id="Verilog数值表示"><a href="#Verilog数值表示" class="headerlink" title="Verilog数值表示"></a>Verilog数值表示</h1><h3 id="实例-3"><a href="#实例-3" class="headerlink" title="实例"></a>实例</h3><p>reg [3:0] counter ; &#x2F;&#x2F;reg 为关键字， counter 为标识符<br>input clk; &#x2F;&#x2F;input 为关键字，clk 为标识符<br>input CLK; &#x2F;&#x2F;CLK 与 clk是 2 个不同的标识符</p>
+<h3 id="数值种类"><a href="#数值种类" class="headerlink" title="数值种类"></a>数值种类</h3><p>Verilog HDL 有下列四种基本的值来表示硬件电路中的电平逻辑：</p>
+<ul>
+<li>0：逻辑 0 或 “假”</li>
+<li>1：逻辑 1 或 “真”</li>
+<li>x 或 X：未知</li>
+<li>z 或 Z：高阻</li>
+</ul>
+<p>x 意味着信号数值的不确定，即在实际电路里，信号可能为 1，也可能为 0。</p>
+<p>z 意味着信号处于高阻状态，常见于信号（input, reg）没有驱动时的逻辑结果。例如一个 pad 的 input 呈现高阻状态时，其逻辑值和上下拉的状态有关系。上拉则逻辑值为 1，下拉则为 0 。</p>
+<h3 id="整数数值表示方法"><a href="#整数数值表示方法" class="headerlink" title="整数数值表示方法"></a>整数数值表示方法</h3><p>数字声明时，合法的基数格式有 4 中，包括：十进制(‘d 或 ‘D)，十六进制(‘h 或 ‘H)，二进制（’b 或 ‘B），八进制（’o 或 ‘O）。数值可指明位宽，也可不指明位宽。</p>
+<p><strong>指明位宽：</strong></p>
+<h3 id="实例-4"><a href="#实例-4" class="headerlink" title="实例"></a>实例</h3><p>4’b1011         &#x2F;&#x2F; 4bit 数值<br>32’h3022_c0de   &#x2F;&#x2F; 32bit 的数值  </p>
+<p>其中，下划线 _ 是为了增强代码的可读性。</p>
+<p><strong>不指明位宽:</strong></p>
+<p>一般直接写数字时，默认为十进制表示，例如下面的 3 种写法是等效的：</p>
+<h3 id="实例-5"><a href="#实例-5" class="headerlink" title="实例"></a>实例</h3><p>counter = ‘d100 ; &#x2F;&#x2F;一般会根据编译器自动分频位宽，常见的为32bit<br>counter = 100 ;<br>counter = 32’h64 ;  </p>
+<p><strong>负数表示</strong></p>
+<p>通常在表示位宽的数字前面加一个减号来表示负数。例如：</p>
+<p>-6’d15<br>-15</p>
+<p>-15 在 5 位二进制中的形式为 5’b10001, 在 6 位二进制中的形式为 6’b11_0001。</p>
+<p>需要注意的是，减号放在基数和数字之间是非法的，例如下面的表示方法是错误的：</p>
+<p>4’d-2 &#x2F;&#x2F;非法说明</p>
+<h3 id="实数表示方法"><a href="#实数表示方法" class="headerlink" title="实数表示方法"></a>实数表示方法</h3><p>实数表示方法主要有两种方式：</p>
+<p><strong>十进制：</strong></p>
+<p>30.123<br>6.0<br>3.0<br>0.001</p>
+<p><strong>科学计数法：</strong></p>
+<p>1.2e4         &#x2F;&#x2F;大小为12000<br>1_0001e4      &#x2F;&#x2F;大小为100010000<br>1E-3          &#x2F;&#x2F;大小为0.001</p>
+<h3 id="字符串表示方法"><a href="#字符串表示方法" class="headerlink" title="字符串表示方法"></a>字符串表示方法</h3><p>字符串是由双引号包起来的字符队列。字符串不能多行书写，即字符串中不能包含回车符。Verilog 将字符串当做一系列的单字节 ASCII 字符队列。例如，为存储字符串 “<a target="_blank" rel="noopener" href="http://www.runoob.com/">www.runoob.com</a>“, 需要 14*8bit 的存储单元。例如：</p>
+<h3 id="实例-6"><a href="#实例-6" class="headerlink" title="实例"></a>实例</h3><p>reg [0: 14*8-1]       str ;<br>initial begin<br>    str = “<a target="_blank" rel="noopener" href="http://www.runoob.com/">www.runoob.com</a>“;<br>end</p>
+<h1 id="2-3-Verilog数据类型"><a href="#2-3-Verilog数据类型" class="headerlink" title="2.3 Verilog数据类型"></a>2.3 Verilog数据类型</h1><p>Verilog 最常用的 2 种数据类型就是线网（wire）与寄存器（reg），其余类型可以理解为这两种数据类型的扩展或辅助。</p>
+<h3 id="线网（wire）"><a href="#线网（wire）" class="headerlink" title="线网（wire）"></a>线网（wire）</h3><p>wire 类型表示硬件单元之间的物理连线，由其连接的器件输出端连续驱动。如果没有驱动元件连接到 wire 型变量，缺省值一般为 “Z”。举例如下：</p>
+<h3 id="实例-7"><a href="#实例-7" class="headerlink" title="实例"></a>实例</h3><p>wire   interrupt ;<br>wire   flag1, flag2 ;<br>wire   gnd = 1’b0 ;    </p>
+<p>线网型还有其他数据类型，包括 wand，wor，wri，triand，trior，trireg 等。这些数据类型用的频率不是很高，这里不做介绍。</p>
+<h3 id="寄存器（reg）"><a href="#寄存器（reg）" class="headerlink" title="寄存器（reg）"></a>寄存器（reg）</h3><p>寄存器（reg）用来表示存储单元，它会保持数据原有的值，直到被改写。声明举例如下：</p>
+<h3 id="实例-8"><a href="#实例-8" class="headerlink" title="实例"></a>实例</h3><p>reg    clk_temp;<br>reg    flag1, flag2 ;  </p>
+<p>例如在 always 块中，寄存器可能被综合成边沿触发器，在组合逻辑中可能被综合成 wire 型变量。寄存器不需要驱动源，也不一定需要时钟信号。在仿真时，寄存器的值可在任意时刻通过赋值操作进行改写。例如：</p>
+<h3 id="实例-9"><a href="#实例-9" class="headerlink" title="实例"></a>实例</h3><p>reg rstn ;<br>initial begin<br>    rstn = 1’b0 ;<br>    #100 ;<br>    rstn = 1’b1 ;<br>end  </p>
+<h3 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h3><p>当位宽大于 1 时，wire 或 reg 即可声明为向量的形式。例如：</p>
+<h3 id="实例-10"><a href="#实例-10" class="headerlink" title="实例"></a>实例</h3><p>reg [3:0]      counter ;    &#x2F;&#x2F;声明4bit位宽的寄存器counter<br>wire [32-1:0]  gpio_data;   &#x2F;&#x2F;声明32bit位宽的线型变量gpio_data<br>wire [8:2]     addr ;       &#x2F;&#x2F;声明7bit位宽的线型变量addr，位宽范围为8:2<br>reg [0:31]     data ;       &#x2F;&#x2F;声明32bit位宽的寄存器变量data, 最高有效位为0  </p>
+<p>对于上面的向量，我们可以指定某一位或若干相邻位，作为其他逻辑使用。例如：</p>
+<h3 id="实例-11"><a href="#实例-11" class="headerlink" title="实例"></a>实例</h3><p>wire [9:0]     data_low = data[0:9] ;<br>addr_temp[3:2] = addr[8:7] + 1’b1 ;  </p>
+<p>Verilog 支持可变的向量域选择，例如：</p>
+<h3 id="实例-12"><a href="#实例-12" class="headerlink" title="实例"></a>实例</h3><p>reg [31:0]     data1 ;<br>reg [7:0]      byte1 [3:0];<br>integer j ;<br>always@* begin<br>    for (j=0; j&lt;&#x3D;3;j=j+1) begin<br>        byte1[j] = data1[(j+1)*8-1 : j*8];<br>        &#x2F;&#x2F;把data1[7:0]…data1[31:24]依次赋值给byte1[0][7:0]…byte[3][7:0]<br>    end<br>end  </p>
+<p><strong>Verillog 还支持指定 bit 位后固定位宽的向量域选择访问。</strong></p>
+<ul>
+<li><strong>[bit+: width]</strong> : 从起始 bit 位开始递增，位宽为 width。</li>
+<li><strong>[bit-: width]</strong> : 从起始 bit 位开始递减，位宽为 width。</li>
+</ul>
+<h3 id="实例-13"><a href="#实例-13" class="headerlink" title="实例"></a>实例</h3><p>&#x2F;&#x2F;下面 2 种赋值是等效的<br>A = data1[31-: 8] ;<br>A = data1[31:24] ;</p>
+<p>&#x2F;&#x2F;下面 2 种赋值是等效的<br>B = data1[0+ : 8] ;<br>B = data1[0:7] ;</p>
+<p><strong>对信号重新进行组合成新的向量时，需要借助大括号。例如：</strong></p>
+<h3 id="实例-14"><a href="#实例-14" class="headerlink" title="实例"></a>实例</h3><p>wire [31:0]    temp1, temp2 ;<br>assign temp1 = {byte1[0][7:0], data1[31:8]};  &#x2F;&#x2F;数据拼接<br>assign temp2 = {32{1’b0}};  &#x2F;&#x2F;赋值32位的数值0    </p>
+<h3 id="整数，实数，时间寄存器变量"><a href="#整数，实数，时间寄存器变量" class="headerlink" title="整数，实数，时间寄存器变量"></a>整数，实数，时间寄存器变量</h3><p>整数，实数，时间等数据类型实际也属于寄存器类型。</p>
+<p><strong>整数（integer）</strong></p>
+<p>整数类型用关键字 integer 来声明。声明时不用指明位宽，位宽和编译器有关，一般为32 bit。reg 型变量为无符号数，而 integer 型变量为有符号数。例如：</p>
+<h3 id="实例-15"><a href="#实例-15" class="headerlink" title="实例"></a>实例</h3><p>reg [31:0]      data1 ;<br>reg [3:0]       byte1 [7:0]; &#x2F;&#x2F;数组变量，后续介绍<br>integer j ;  &#x2F;&#x2F;整型变量，用来辅助生成数字电路<br>always@* begin<br>    for (j=0; j&lt;&#x3D;3;j=j+1) begin<br>        byte1[j] = data1[(j+1)*8-1 : j*8];<br>        &#x2F;&#x2F;把data1[7:0]…data1[31:24]依次赋值给byte1[0][7:0]…byte[3][7:0]<br>        end<br>end  </p>
+<p>此例中，integer 信号 j 作为辅助信号，将 data1 的数据依次赋值给数组 byte1。综合后实际电路里并没有 j 这个信号，j 只是辅助生成相应的硬件电路。</p>
+<p><strong>实数（real）</strong></p>
+<p>实数用关键字 real 来声明，可用十进制或科学计数法来表示。实数声明不能带有范围，默认值为 0。如果将一个实数赋值给一个整数，则只有实数的整数部分会赋值给整数。例如：</p>
+<h3 id="实例-16"><a href="#实例-16" class="headerlink" title="实例"></a>实例</h3><p>real        data1 ;<br>integer     temp ;<br>initial begin<br>    data1 = 2e3 ;<br>    data1 = 3.75 ;<br>end</p>
+<p>  initial begin<br>    temp = data1 ; &#x2F;&#x2F;temp 值的大小为3<br>end</p>
+<p><strong>时间（time）</strong></p>
+<p>Verilog 使用特殊的时间寄存器 time 型变量，对仿真时间进行保存。其宽度一般为 64 bit，通过调用系统函数 $time 获取当前仿真时间。例如：</p>
+<h3 id="实例-17"><a href="#实例-17" class="headerlink" title="实例"></a>实例</h3><p>time       current_time ;<br>initial begin<br>       #100 ;<br>       current_time = $time ; &#x2F;&#x2F;current_time 的大小为 100<br>end  </p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>在 Verilog 中允许声明 reg, wire, integer, time, real 及其向量类型的数组。</p>
+<p>数组维数没有限制。线网数组也可以用于连接实例模块的端口。数组中的每个元素都可以作为一个标量或者向量，以同样的方式来使用，形如：&lt;数组名&gt;[&lt;下标&gt;]。对于多维数组来讲，用户需要说明其每一维的索引。例如：</p>
+<h3 id="实例-18"><a href="#实例-18" class="headerlink" title="实例"></a>实例</h3><p>integer          flag [7:0] ; &#x2F;&#x2F;8个整数组成的数组<br>reg  [3:0]       counter [3:0] ; &#x2F;&#x2F;由4个4bit计数器组成的数组<br>wire [7:0]       addr_bus [3:0] ; &#x2F;&#x2F;由4个8bit wire型变量组成的数组<br>wire             data_bit[7:0][5:0] ; &#x2F;&#x2F;声明1bit wire型变量的二维数组<br>reg [31:0]       data_4d[11:0][3:0][3:0][255:0] ; &#x2F;&#x2F;声明4维的32bit数据变量数组  </p>
+<p>下面显示了对数组元素的赋值操作：</p>
+<h3 id="实例-19"><a href="#实例-19" class="headerlink" title="实例"></a>实例</h3><p>flag [1]   = 32’d0 ; &#x2F;&#x2F;将flag数组中第二个元素赋值为32bit的0值<br>counter[3] = 4’hF ;  &#x2F;&#x2F;将数组counter中第4个元素的值赋值为4bit 十六进制数F，等效于counter[3][3:0] &#x3D; 4’hF，即可省略宽度;<br>assign addr_bus[0]        = 8’b0 ; &#x2F;&#x2F;将数组addr_bus中第一个元素的值赋值为0<br>assign data_bit[0][1]     = 1’b1;  &#x2F;&#x2F;将数组data_bit的第1行第2列的元素赋值为1，这里不能省略第二个访问标号，即 assign data_bit[0] &#x3D; 1’b1; 是非法的。<br>data_4d[0][0][0][0][15:0] = 15’d3 ;  &#x2F;&#x2F;将数组data_4d中标号为[0][0][0][0]的寄存器单元的15~0bit赋值为3  </p>
+<p>虽然数组与向量的访问方式在一定程度上类似，但不要将向量和数组混淆。向量是一个单独的元件，位宽为 n；数组由多个元件组成，其中每个元件的位宽为 n 或 1。它们在结构的定义上就有所区别。</p>
+<h3 id="存储器"><a href="#存储器" class="headerlink" title="存储器"></a>存储器</h3><p>存储器变量就是一种寄存器数组，可用来描述 RAM 或 ROM 的行为。例如：</p>
+<h3 id="实例-20"><a href="#实例-20" class="headerlink" title="实例"></a>实例</h3><p>reg               membit[0:255] ;  &#x2F;&#x2F;256bit的1bit存储器<br>reg  [7:0]        mem[0:1023] ;    &#x2F;&#x2F;1Kbyte存储器，位宽8bit<br>mem[511] = 8’b0 ;                  &#x2F;&#x2F;令第512个8bit的存储单元值为0  </p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>参数用来表示常量，用关键字 parameter 声明，只能赋值一次。例如：</p>
+<h3 id="实例-21"><a href="#实例-21" class="headerlink" title="实例"></a>实例</h3><p>parameter      data_width = 10’d32 ;<br>parameter      i=1, j=2, k=3 ;<br>parameter      mem_size = data_width * 10 ;  </p>
+<p>但是，通过实例化的方式，可以更改参数在模块中的值。此部分以后会介绍。</p>
+<p>局部参数用 localparam 来声明，其作用和用法与 parameter 相同，区别在于它的值不能被改变。所以当参数只在本模块中调用时，可用 localparam 来说明。</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>字符串保存在 reg 类型的变量中，每个字符占用一个字节（8bit）。因此寄存器变量的宽度应该足够大，以保证不会溢出。</p>
+<p>字符串不能多行书写，即字符串中不能包含回车符。如果寄存器变量的宽度大于字符串的大小，则使用 0 来填充左边的空余位；如果寄存器变量的宽度小于字符串大小，则会截去字符串左边多余的数据。例如，为存储字符串 “run.runoob.com”, 需要 14*8bit 的存储单元：</p>
+<h3 id="实例-22"><a href="#实例-22" class="headerlink" title="实例"></a>实例</h3><p>reg [0: 14*8-1]       str ;<br>initial begin<br>    str = “run.runoob.com”;<br>end    </p>
+<p>有一些特殊字符在显示字符串中有特殊意义，例如换行符，制表符等。如果需要在字符串中显示这些特殊的字符，则需要在前面加前缀转义字符 \ 。例如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>转义字符</th>
+<th>显示字符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\n</td>
+<td>换行</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>制表符</td>
+</tr>
+<tr>
+<td>%%</td>
+<td>%</td>
+</tr>
+<tr>
+<td>\</td>
+<td>\</td>
+</tr>
+<tr>
+<td>\“</td>
+<td>“</td>
+</tr>
+<tr>
+<td>\ooo</td>
+<td>1到3个8进制数字字符</td>
+</tr>
+</tbody></table>
+<p>其实，在 SystemVerilog（主要用于 Verilog 仿真的编程语言）语言中，已经可以直接用关键字 string 来表示字符串变量类型，这为 Verilog 的仿真带来了极大的便利。有兴趣的学者可以简单学习下 SystemVerilog。</p>
+<h1 id="2-4-Verilog表达式"><a href="#2-4-Verilog表达式" class="headerlink" title="2.4 Verilog表达式"></a>2.4 Verilog表达式</h1><h3 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h3><p>表达式由操作符和操作数构成，其目的是根据操作符的意义得到一个计算结果。表达式可以在出现数值的任何地方使用。例如：</p>
+<h3 id="实例-23"><a href="#实例-23" class="headerlink" title="实例"></a>实例</h3><p>a^b ;          &#x2F;&#x2F;a与b进行异或操作<br>address[9:0] + 10’b1 ;  &#x2F;&#x2F;地址累加<br>flag1 &amp;&amp; flag2 ;  &#x2F;&#x2F;逻辑与操作  </p>
+<h3 id="操作数"><a href="#操作数" class="headerlink" title="操作数"></a>操作数</h3><p>操作数可以是任意的数据类型，只是某些特定的语法结构要求使用特定类型的操作数。</p>
+<p>操作数可以为常数，整数，实数，线网，寄存器，时间，位选，域选，存储器及函数调用等。</p>
+<h3 id="实例-24"><a href="#实例-24" class="headerlink" title="实例"></a>实例</h3><p>module test;</p>
+<p>&#x2F;&#x2F;实数<br>real a, b, c;<br>c = a + b ;</p>
+<p>&#x2F;&#x2F;寄存器<br>reg  [3:0]       cprmu_1, cprmu_2 ;<br>always @(posedge clk) begin<br>        cprmu_2 = cprmu_1 ^ cprmu_2 ;<br>end</p>
+<p>          &#x2F;&#x2F;函数<br>reg  flag1 ;<br>flag = calculate_result(A, B);</p>
+<p>  &#x2F;&#x2F;非法操作数<br>reg [3:0]         res;<br>wire [3:0]        temp;<br>always@ （*）begin<br>    res    = cprmu_2 – cprmu_1 ;<br>    &#x2F;&#x2F;temp &#x3D; cprmu_2 – cprmu_1 ; &#x2F;&#x2F;不合法，always块里赋值对象不能是wire型<br>end</p>
+<p>endmodule</p>
+<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><p>Verilog 中提供了大约 9 种操作符，分别是算术、关系、等价、逻辑、按位、归约、移位、拼接、条件操作符。</p>
+<p>大部分操作符与 C 语言中类似。同类型操作符之间，除条件操作符从右往左关联，其余操作符都是自左向右关联。圆括号内表达式优先执行。例如下面每组的 2 种写法都是等价的。</p>
+<p>&#x2F;&#x2F;自右向左关联，两种写法等价<br>A+B-C ;<br>(A+B）-C ;</p>
+<p>&#x2F;&#x2F;自右向左关联，两种写法等价，结果为 B、D 或 F<br>A ? B : C ? D : F ;<br>A ? B : (C ? D : F) ;</p>
+<p>&#x2F;&#x2F;自右向左关联，两种写法不等价<br>(A ? B : C) ? D : F ;  &#x2F;&#x2F;结果 D 或 F<br>A ? B : C ? D : F ; &#x2F;&#x2F;结果为 B、D 或 F</p>
+<p>不同操作符之间，优先级是不同的。下表列出了操作符优先级从高至低的排列顺序。当没有圆括号时，Verilog 会根据操作符优先级对表达式进行计算。为了避免由操作符优先级导致的计算混乱，在不确定优先级时，建议用圆括号将表达式区分开来。</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>操作符号</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单目运算</td>
+<td>+ - ! ~</td>
+<td>最高</td>
+</tr>
+<tr>
+<td>乘、除、取模</td>
+<td>* &#x2F; %</td>
+<td></td>
+</tr>
+<tr>
+<td>加减</td>
+<td>+ -</td>
+<td></td>
+</tr>
+<tr>
+<td>移位</td>
+<td>&lt;&lt;  &gt;&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td>关系</td>
+<td>&lt;  &lt;&#x3D;  &gt;  &gt;&#x3D;</td>
+<td></td>
+</tr>
+<tr>
+<td>等价</td>
+<td>=&#x3D;  !&#x3D;  &#x3D;&#x3D;&#x3D;  !&#x3D;&#x3D;&#x3D;</td>
+<td></td>
+</tr>
+<tr>
+<td>归约</td>
+<td>&amp; ~&amp;</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>^ ~^</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>~</td>
+</tr>
+<tr>
+<td>逻辑</td>
+<td>&amp;&amp;</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>条件</td>
+<td>?:</td>
+<td>最低</td>
+</tr>
+</tbody></table>
+<h3 id="算术操作符"><a href="#算术操作符" class="headerlink" title="算术操作符"></a>算术操作符</h3><p>算术操作符包括单目操作符和双目操作符。</p>
+<p>双目操作符对 2 个操作数进行算术运算，包括乘（*）、除（&#x2F;）、加（+）、减（-）、求幂（**）、取模（%）。</p>
+<h3 id="实例-25"><a href="#实例-25" class="headerlink" title="实例"></a>实例</h3><p>reg [3:0]  a, b;<br>reg [4:0]  c ;<br>a = 4’b0010 ;<br>b = 4’b1001 ;<br>c = a+b;        &#x2F;&#x2F;结果为c&#x3D;b’b1011<br>c = a&#x2F;b;          &#x2F;&#x2F;结果为c&#x3D;4，取整  </p>
+<p>如果操作数某一位为 X，则计算结果也会全部出现 X。例如：</p>
+<h3 id="实例-26"><a href="#实例-26" class="headerlink" title="实例"></a>实例</h3><p>b = 4’b100x ;<br>c = a+b ;       &#x2F;&#x2F;结果为c&#x3D;4’bxxxx  </p>
+<p>对变量进行声明时，要根据变量的操作符对变量的位宽进行合理声明，不要让结果溢出。上述例子中，相加的 2 个变量位宽为 4bit，那么结果寄存器变量位宽最少为 5bit。否则，高位将被截断，导致结果高位丢失。无符号数乘法时，结果变量位宽应该为 2 个操作数位宽之和。</p>
+<h3 id="实例-27"><a href="#实例-27" class="headerlink" title="实例"></a>实例</h3><p>reg [3:0]        mula ;<br>reg [1:0]        mulb;<br>reg [5:0]        res ;<br>mula = 4’he   ;<br>mulb = 2’h3   ;<br>res  = mula * mulb ; &#x2F;&#x2F;结果为res&#x3D;6’h2a, 数据结果没有丢失位数  </p>
+<p>+ 和 - 也可以作为单目操作符来使用，表示操作数的正负性。此类操作符优先级最高。</p>
+<p>-4  &#x2F;&#x2F;表示负4<br>+3  &#x2F;&#x2F;表示正3</p>
+<p>负数表示时，可以直接在十进制数字前面增加一个减号 -，也可以指定位宽。因为负数使用二进制补码来表示，不指定位宽来表示负数，编译器在转换时，会自动分配位宽，从而导致意想不到的结果。例如：</p>
+<h3 id="实例-28"><a href="#实例-28" class="headerlink" title="实例"></a>实例</h3><p>mula = -4’d4 ;<br>mulb = 2 ;<br>res = mula * mulb ;      &#x2F;&#x2F;计算结果为res&#x3D;-6’d8, 即res&#x3D;6’h38，正常<br>res = mula * (-‘d4) ;    &#x2F;&#x2F;(4的32次幂-4) * 2, 结果异常  </p>
+<h3 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h3><p>关系操作符有大于（&gt;），小于（&lt;），大于等于（&gt;&#x3D;），小于等于（&lt;&#x3D;）。</p>
+<p>关系操作符的正常结果有 2 种，真（1）或假（0）。</p>
+<p>如果操作数中有一位为 x 或 z，则关系表达式的结果为 x。</p>
+<h3 id="实例-29"><a href="#实例-29" class="headerlink" title="实例"></a>实例</h3><p>A = 4 ;<br>B = 3 ;<br>X = 3’b1xx ;</p>
+<p>    A &gt; B     &#x2F;&#x2F;为真<br>A &lt;&#x3D; B    &#x2F;&#x2F;为假<br>A &gt;&#x3D; Z    &#x2F;&#x2F;为X，不确定</p>
+<h3 id="等价操作符"><a href="#等价操作符" class="headerlink" title="等价操作符"></a>等价操作符</h3><p>等价操作符包括逻辑相等（&#x3D;&#x3D;），逻辑不等（!&#x3D;），全等（&#x3D;&#x3D;&#x3D;），非全等（!&#x3D;&#x3D;）。</p>
+<p>等价操作符的正常结果有 2 种：为真（1）或假（0）。</p>
+<p>逻辑相等&#x2F;不等操作符不能比较 x 或 z，当操作数包含一个 x 或 z，则结果为不确定值。</p>
+<p>全等比较时，如果按位比较有相同的 x 或 z，返回结果也可以为 1，即全等比较可比较 x 或 z。所以，全等比较的结果一定不包含 x。举例如下：</p>
+<h3 id="实例-30"><a href="#实例-30" class="headerlink" title="实例"></a>实例</h3><p>A = 4 ;<br>B = 8’h04 ;<br>C = 4’bxxxx ;<br>D = 4’hx ;<br>A =&#x3D; B        &#x2F;&#x2F;为真<br>A =&#x3D; (B + 1)  &#x2F;&#x2F;为假<br>A =&#x3D; C        &#x2F;&#x2F;为X，不确定<br>A =&#x3D;&#x3D; C       &#x2F;&#x2F;为假，返回值为0<br>C =&#x3D;&#x3D; D       &#x2F;&#x2F;为真，返回值为1  </p>
+<h3 id="逻辑操作符"><a href="#逻辑操作符" class="headerlink" title="逻辑操作符"></a>逻辑操作符</h3><p>逻辑操作符主要有 3 个：&amp;&amp;（逻辑与）, ||（逻辑或），!（逻辑非）。</p>
+<p>逻辑操作符的计算结果是一个 1bit 的值，0 表示假，1 表示真，x 表示不确定。</p>
+<p>如果一个操作数不为 0，它等价于逻辑 1；如果一个操作数等于 0，它等价于逻辑 0。如果它任意一位为 x 或 z，它等价于 x。</p>
+<p>如果任意一个操作数包含 x，逻辑操作符运算结果不一定为 x。</p>
+<p>逻辑操作符的操作数可以为变量，也可以为表达式。例如：</p>
+<h3 id="实例-31"><a href="#实例-31" class="headerlink" title="实例"></a>实例</h3><p>A = 3;<br>B = 0;<br>C = 2’b1x ;</p>
+<p>    A &amp;&amp; B    &#x2F;&#x2F;     为假<br>A || B    &#x2F;&#x2F;     为真<br>! A       &#x2F;&#x2F;     为假<br>! B       &#x2F;&#x2F;     为真<br>A &amp;&amp; C    &#x2F;&#x2F;     为X，不确定<br>A || C    &#x2F;&#x2F;     为真，因为A为真<br>(A=&#x3D;2) &amp;&amp; (! B)  &#x2F;&#x2F;为真，此时第一个操作数为表达式</p>
+<h3 id="按位操作符"><a href="#按位操作符" class="headerlink" title="按位操作符"></a>按位操作符</h3><p>按位操作符包括：取反（<del>），与（&amp;），或（|），异或（^），同或（</del>^）。</p>
+<p>按位操作符对 2 个操作数的每 1bit 数据进行按位操作。</p>
+<p>如果 2 个操作数位宽不相等，则用 0 向左扩展补充较短的操作数。</p>
+<p>取反操作符只有一个操作数，它对操作数的每 1bit 数据进行取反操作。</p>
+<p>下图给出了按位操作符的逻辑规则。</p>
+<p>| &amp;(与） | 0 | 1 | x |   | |(或) | 0 | 1 | x |<br>| — | — | — | — | — | — | — | — | — |<br>| 0 | 0 | 0 | 0 |   | 0 | 0 | 1 | x |<br>| 1 | 0 | 1 | x |   | 1 | 1 | 1 | 1 |<br>| x | 0 | x | x |   | x | x | 1 | x |</p>
+<table>
+<thead>
+<tr>
+<th>^(异或)</th>
+<th>0</th>
+<th>1</th>
+<th>x</th>
+<th></th>
+<th>~^(同或)</th>
+<th>0</th>
+<th>1</th>
+<th>x</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>x</td>
+<td></td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>x</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>x</td>
+<td></td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>x</td>
+</tr>
+<tr>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+</tbody></table>
+<h3 id="实例-32"><a href="#实例-32" class="headerlink" title="实例"></a>实例</h3><p>A = 4’b0101 ;<br>B = 4’b1001 ;<br>C = 4’bx010 ;</p>
+<p>    ~A        &#x2F;&#x2F;4’b1010<br>A &amp; B     &#x2F;&#x2F;4’b0001<br>A | B     &#x2F;&#x2F;4’b1101<br>A^B       &#x2F;&#x2F;4’b1100<br>A ~^ B    &#x2F;&#x2F;4’b0011<br>B | C     &#x2F;&#x2F;4’b1011<br>B&amp;C       &#x2F;&#x2F;4’bx000</p>
+<h3 id="归约操作符"><a href="#归约操作符" class="headerlink" title="归约操作符"></a>归约操作符</h3><p>归约操作符包括：归约与（&amp;），归约与非（<del>&amp;），归约或（|），归约或非（</del>|），归约异或（^），归约同或（~^）。</p>
+<p>归约操作符只有一个操作数，它对这个向量操作数逐位进行操作，最终产生一个 1bit 结果。</p>
+<p>逻辑操作符、按位操作符和归约操作符都使用相同的符号表示，因此有时候容易混淆。区分这些操作符的关键是分清操作数的数目，和计算结果的规则。</p>
+<p>A &#x3D; 4’b1010 ;<br>&amp;A ;      &#x2F;&#x2F;结果为 1 &amp; 0 &amp; 1 &amp; 0 &#x3D; 1’b0，可用来判断变量A是否全1<br>~|A ;     &#x2F;&#x2F;结果为 ~(1 | 0 | 1 | 0) &#x3D; 1’b0, 可用来判断变量A是否为全0<br>^A ;      &#x2F;&#x2F;结果为 1 ^ 0 ^ 1 ^ 0 &#x3D; 1’b0</p>
+<h3 id="移位操作符"><a href="#移位操作符" class="headerlink" title="移位操作符"></a>移位操作符</h3><p>移位操作符包括左移（&lt;&lt;），右移（&gt;&gt;），算术左移（&lt;&lt;&lt;），算术右移（&gt;&gt;&gt;）。</p>
+<p>移位操作符是双目操作符，两个操作数分别表示要进行移位的向量信号（操作符左侧）与移动的位数（操作符右侧）。</p>
+<p>算术左移和逻辑左移时，右边低位会补 0。</p>
+<p>逻辑右移时，左边高位会补 0；而算术右移时，左边高位会补充符号位，以保证数据缩小后值的正确性。</p>
+<h3 id="实例-33"><a href="#实例-33" class="headerlink" title="实例"></a>实例</h3><p>A = 4’b1100 ;<br>B = 4’b0010 ;<br>A = A &gt;&gt; 2 ;        &#x2F;&#x2F;结果为 4’b0011<br>A = A &lt;&lt; 1;         &#x2F;&#x2F;结果为 4’b1000<br>A = A &lt;&lt;&lt; 1 ;       &#x2F;&#x2F;结果为 4’b1000<br>C = B + (A&gt;&gt;&gt;2);    &#x2F;&#x2F;结果为 2 + (-4&#x2F;4) &#x3D; 1, 4’b0001  </p>
+<h3 id="拼接操作符"><a href="#拼接操作符" class="headerlink" title="拼接操作符"></a>拼接操作符</h3><p>拼接操作符用大括号 {，} 来表示，用于将多个操作数（向量）拼接成新的操作数（向量），信号间用逗号隔开。</p>
+<p>拼接符操作数必须指定位宽，常数的话也需要指定位宽。例如：</p>
+<h3 id="实例-34"><a href="#实例-34" class="headerlink" title="实例"></a>实例</h3><p>A = 4’b1010 ;<br>B = 1’b1 ;<br>Y1 = {B, A[3:2], A[0], 4’h3 };  &#x2F;&#x2F;结果为Y1&#x3D;’b1100_0011<br>Y2 = {4{B}, 3’d4};  &#x2F;&#x2F;结果为 Y2&#x3D;7’b111_1100<br>Y3 = {32{1’b0}};  &#x2F;&#x2F;结果为 Y3&#x3D;32h0，常用作寄存器初始化时匹配位宽的赋初值  </p>
+<h3 id="条件操作符"><a href="#条件操作符" class="headerlink" title="条件操作符"></a>条件操作符</h3><p>条件表达式有 3 个操作符，结构描述如下：</p>
+<p>condition_expression ? true_expression : false_expression</p>
+<p>计算时，如果 condition_expression 为真（逻辑值为 1），则运算结果为 true_expression；如果 condition_expression 为假（逻辑值为 0），则计算结果为 false_expression。</p>
+<p>assign hsel    &#x3D; (addr[9:8] &#x3D;&#x3D; 2’b0) ? hsel_p1 : hsel_p2 ;<br>&#x2F;&#x2F;当信号 addr 高 2bit 为 0 时，hsel 赋值为 hsel_p1; 否则，将 hsel_p2 赋值给 hsel。</p>
+<p>其实，条件表达式类似于 2 路（或多路）选择器，其描述方式完全可以用 if-else 语句代替。</p>
+<p>当然条件操作符也能进行嵌套，完成一个多次选择的逻辑。例如：</p>
+<h3 id="实例-35"><a href="#实例-35" class="headerlink" title="实例"></a>实例</h3><p>assign   hsel = (addr[9:8] =&#x3D; 2’b00) ? hsel_p1 :<br>                (addr[9:8] =&#x3D; 2’b01) ? hsel_p2 :<br>                (addr[9:8] =&#x3D; 2’b10) ? hsel_p3 :<br>                (addr[9:8] =&#x3D; 2’b11) ? hsel_p4 ;</p>
+<h1 id="2-5-Verilog编译指令"><a href="#2-5-Verilog编译指令" class="headerlink" title="2.5 Verilog编译指令"></a>2.5 Verilog编译指令</h1><p>以反引号 ` 开始的某些标识符是 Verilog 系统编译指令。</p>
+<p>编译指令为 Verilog 代码的撰写、编译、调试等提供了极大的便利。</p>
+<p>下面介绍下完整的 8 种编译指令，其中前 4 种使用频率较高。</p>
+<h3 id="define-undef"><a href="#define-undef" class="headerlink" title="`define, `undef"></a>`define, `undef</h3><p>在编译阶段，`define 用于文本替换，类似于 C 语言中的 <strong>#define</strong>。</p>
+<p>一旦 `define 指令被编译，其在整个编译过程中都会有效。例如，在一个文件中定义：</p>
+<p>`define    DATA_DW     32</p>
+<p>则在另一个文件中也可以直接使用 DATA_DW。</p>
+<p>`define    S     $stop;<br>&#x2F;&#x2F;用`S来代替系统函数$stop; (包括分号)<br>`define    WORD_DEF   reg [31:0]<br>&#x2F;&#x2F;可以用`WORD_DEF来声明32bit寄存器变量</p>
+<p>`undef 用来取消之前的宏定义，例如：</p>
+<p>`define    DATA_DW     32<br>……<br>reg  [DATA_DW-1:0]    data_in   ;<br>……<br>`undef DATA_DW</p>
+<p>`ifdef, `ifndef, `elsif, `else, `endif</p>
+<p>这些属于条件编译指令。例如下面的例子中，如果定义了 MCU51，则使用第一种参数说明；如果没有定义 MCU、定义了 WINDOW，则使用第二种参数说明；如果 2 个都没有定义，则使用第三种参数说明。</p>
+<p>`ifdef       MCU51<br>    parameter DATA_DW &#x3D; 8   ;<br>`elsif       WINDOW<br>    parameter DATA_DW &#x3D; 64  ;<br>`else<br>    parameter DATA_DW &#x3D; 32  ;<br>`endif</p>
+<p>`elsif, `else 编译指令对于 `ifdef 指令是可选的，即可以只有 `ifdef 和 `endif 组成一次条件编译指令块。</p>
+<p>当然，也可用 `ifndef 来设置条件编译，表示如果没有相关的宏定义，则执行相关语句。</p>
+<p>下面例子中，如果定义了 WINDOW，则使用第二种参数说明。如果没有定义 WINDOW，则使用第一种参数说明。</p>
+<h3 id="实例-36"><a href="#实例-36" class="headerlink" title="实例"></a>实例</h3><p>`ifndef     WINDOW<br>    parameter DATA_DW = 32 ;  <br> `else<br>    parameter DATA_DW = 64 ;<br> `endif  </p>
+<h3 id="include"><a href="#include" class="headerlink" title="`include"></a>`include</h3><p>使用 `include 可以在编译时将一个 Verilog 文件内嵌到另一个 Verilog 文件中，作用类似于 C 语言中的 #include 结构。该指令通常用于将全局或公用的头文件包含在设计文件里。</p>
+<p>文件路径既可以使用相对路径，也可以使用绝对路径。</p>
+<p>`include         “..&#x2F;..&#x2F;param.v”<br>`include         “header.v”</p>
+<h3 id="timescale"><a href="#timescale" class="headerlink" title="`timescale"></a>`timescale</h3><p>在 Verilog 模型中，时延有具体的单位时间表述，并用 `timescale 编译指令将时间单位与实际时间相关联。</p>
+<p>该指令用于定义时延、仿真的单位和精度，格式为：</p>
+<p>`timescale      time_unit &#x2F; time_precision</p>
+<p>time_unit 表示时间单位，time_precision 表示时间精度，它们均是由数字以及单位 s（秒），ms（毫秒），us（微妙），ns（纳秒），ps（皮秒）和 fs（飞秒）组成。时间精度可以和时间单位一样，但是时间精度大小不能超过时间单位大小，例如下面例子中，输出端 Z 会延迟 5.21ns 输出 A&amp;B 的结果。</p>
+<h3 id="实例-37"><a href="#实例-37" class="headerlink" title="实例"></a>实例</h3><p>`timescale 1ns&#x2F;100ps    &#x2F;&#x2F;时间单位为1ns，精度为100ps，合法<br>&#x2F;&#x2F;`timescale 100ps&#x2F;1ns  &#x2F;&#x2F;不合法<br>module AndFunc(Z, A, B);<br>    output Z;<br>    input A, B ;<br>    assign #5.207 Z = A &amp; B<br>endmodule  </p>
+<p>在编译过程中，`timescale 指令会影响后面所有模块中的时延值，直至遇到另一个 `timescale 指令或 `resetall 指令。</p>
+<p>由于在 Verilog 中没有默认的 `timescale，如果没有指定 `timescale，Verilog 模块就有会继承前面编译模块的 `timescale 参数。有可能导致设计出错。</p>
+<p>如果一个设计中的多个模块都带有 `timescale 时，模拟器总是定位在所有模块的最小时延精度上，并且所有时延都相应地换算为最小时延精度，时延单位并不受影响。例如:</p>
+<h3 id="实例-38"><a href="#实例-38" class="headerlink" title="实例"></a>实例</h3><p>`timescale 10ns&#x2F;1ns      <br>module test;<br>    reg        A, B ;<br>    wire       OUTZ ;</p>
+<p>      initial begin<br>        A     = 1;<br>        B     = 0;<br>        # 1.28    B = 1;<br>        # 3.1     A = 0;<br>    end</p>
+<p>      AndFunc        u_and(OUTZ, A, B) ;<br>endmodule</p>
+<p>在模块 AndFunc 中，5.207 对应 5.21ns。</p>
+<p>在模块 test 中，1.28 对应 13ns，3.1 对应 31ns。</p>
+<p>但是，当仿真 test 时，由于 AndFunc 中的最小精度为 100ps，因此 test 中的时延精度将进行重新调整。13ns 将对应 130*100ps，31ns 将对应 310*100ps。仿真时，时延精度也会使用 100ps。仿真时间单位大小没有影响。</p>
+<p>如果有并行子模块，子模块间的 `timescale 并不会相互影响。</p>
+<p>例如在模块 test 中再例化一个子模块 OrFunc。仿真 test 时，OrFunc 中的 #5.207 延时依然对应 52ns。</p>
+<h3 id="实例-39"><a href="#实例-39" class="headerlink" title="实例"></a>实例</h3><p>&#x2F;&#x2F;子模块：<br>`timescale 10ns&#x2F;1ns      &#x2F;&#x2F;时间单位为1ns，精度为100ps，合法<br>module OrFunc(Z, A, B);<br>    output Z;<br>    input A, B ;<br>    assign #5.207 Z = A | B<br>endmodule</p>
+<p>  &#x2F;&#x2F;顶层模块：<br>`timescale 10ns&#x2F;1ns      <br>module test;<br>    reg        A, B ;<br>    wire       OUTZ ;<br>    wire       OUTX ;</p>
+<p>      initial begin<br>        A     = 1;<br>        B     = 0;<br>        # 1.28    B = 1;<br>        # 3.1     A = 0;<br>    end</p>
+<p>      AndFunc        u_and(OUTZ, A, B) ;<br>    OrFunc         u_and(OUTX, A, B) ;</p>
+<p>  endmodule</p>
+<p>此例中，仿真 test 时，OrFunc 中的 #5.207 延时依然对应 52ns。</p>
+<p>`timescale 的时间精度设置是会影响仿真时间的。时间精度越小，仿真时占用内存越多，实际使用的仿真时间就越长。所以如果没有必要，应尽量将时间精度设置的大一些。</p>
+<h3 id="default-nettype"><a href="#default-nettype" class="headerlink" title="`default_nettype"></a>`default_nettype</h3><p>该指令用于为隐式的线网变量指定为线网类型，即将没有被声明的连线定义为线网类型。</p>
+<p>`default_nettype wand </p>
+<p>该实例定义的缺省的线网为线与类型。因此，如果在此指令后面的任何模块中的连线没有说明，那么该线网被假定为线与类型。</p>
+<p>`default_nettype none</p>
+<p>该实例定义后，将不再自动产生 wire 型变量。</p>
+<p>例如下面第一种写法编译时不会报 Error，第二种写法编译将不会通过。</p>
+<h3 id="实例-40"><a href="#实例-40" class="headerlink" title="实例"></a>实例</h3><p>&#x2F;&#x2F;Z1 无定义就使用，系统默认Z1为wire型变量，有 Warning 无 Error<br>module test_and(<br>        input      A,<br>        input      B,<br>        output     Z);<br>    assign Z1 = A &amp; B ;  <br>endmodule  </p>
+<h3 id="实例-41"><a href="#实例-41" class="headerlink" title="实例"></a>实例</h3><p>&#x2F;&#x2F;Z1无定义就使用，由于编译指令的存在，系统会报Error，从而检查出书写错误<br>`default_nettype none<br>module test_and(<br>        input      A,<br>        input      B,<br>        output     Z);<br>    assign Z1 = A &amp; B ;  <br>endmodule  </p>
+<h3 id="resetall"><a href="#resetall" class="headerlink" title="`resetall"></a>`resetall</h3><p>该编译器指令将所有的编译指令重新设置为缺省值。</p>
+<p>`resetall 可以使得缺省连线类型为线网类型。</p>
+<p>当 `resetall 加到模块最后时，可以将当前的 `timescale 取消防止进一步传递，只保证当前的 `timescale 在局部有效，避免 `timescale 的错误继承。</p>
+<h3 id="celldefine-endcelldefine"><a href="#celldefine-endcelldefine" class="headerlink" title="`celldefine, `endcelldefine"></a>`celldefine, `endcelldefine</h3><p>这两个程序指令用于将模块标记为单元模块，他们包含模块的定义。例如一些与、或、非门，一些 PLL 单元，PAD 模型，以及一些 Analog IP 等。</p>
+<h3 id="实例-42"><a href="#实例-42" class="headerlink" title="实例"></a>实例</h3><p>`celldefine<br>module (<br>    input      clk,<br>    input      rst,<br>    output     clk_pll,<br>    output     flag);<br>        ……<br>endmodule<br>`endcelldefine  </p>
+<h3 id="unconnected-drive-nounconnected-drive"><a href="#unconnected-drive-nounconnected-drive" class="headerlink" title="`unconnected_drive, `nounconnected_drive"></a>`unconnected_drive, `nounconnected_drive</h3><p>在模块实例化中，出现在这两个编译指令间的任何未连接的输入端口，为正偏电路状态或者为反偏电路状态。</p>
+<p>`unconnected_drive pull1<br>. . .<br> &#x2F; *在这两个程序指令间的所有未连接的输入端口为正偏电路状态（连接到高电平） * &#x2F;<br>`nounconnected_drive</p>
+<p>`unconnected_drive pull0<br>. . .<br> &#x2F; *在这两个程序指令间的所有未连接的输入端口为反偏电路状态（连接到低电平） * &#x2F;<br>`nounconnected_drive</p>
+<h1 id="3-1-Verilog连续赋值"><a href="#3-1-Verilog连续赋值" class="headerlink" title="3.1 Verilog连续赋值"></a>3.1 Verilog连续赋值</h1><h3 id="关键词：assign，-全加器"><a href="#关键词：assign，-全加器" class="headerlink" title="关键词：assign， 全加器"></a>关键词：assign， 全加器</h3><p>连续赋值语句是 Verilog 数据流建模的基本语句，用于对 wire 型变量进行赋值。：</p>
+<p>格式如下</p>
+<p>assign     LHS_target &#x3D; RHS_expression  ；</p>
+<p>LHS（left hand side） 指赋值操作的左侧，RHS（right hand side）指赋值操作的右侧。</p>
+<p>assign 为关键词，任何已经声明 wire 变量的连续赋值语句都是以 assign 开头，例如：</p>
+<p>wire      Cout, A, B ;<br>assign    Cout  &#x3D; A &amp; B ;     &#x2F;&#x2F;实现计算A与B的功能</p>
+<p>需要说明的是：</p>
+<ul>
+<li>LHS_target 必须是一个标量或者线型向量，而不能是寄存器类型。</li>
+<li>RHS_expression 的类型没有要求，可以是标量或线型或存器向量，也可以是函数调用。</li>
+<li>只要 RHS_expression 表达式的操作数有事件发生（值的变化）时，RHS_expression 就会立刻重新计算，同时赋值给 LHS_target。</li>
+</ul>
+<p>Verilog 还提供了另一种对 wire 型赋值的简单方法，即在 wire 型变量声明的时候同时对其赋值。wire 型变量只能被赋值一次，因此该种连续赋值方式也只能有一次。例如下面赋值方式和上面的赋值例子的赋值方式，效果都是一致的。</p>
+<p>wire      A, B ;<br>wire      Cout &#x3D; A &amp; B ;</p>
+<h3 id="全加器"><a href="#全加器" class="headerlink" title="全加器"></a>全加器</h3><p>下面采用数据流描述方式，来设计一个 1bit 全加器。</p>
+<p>设 Ai，Bi，Ci 分别为被加数、加数和相邻低位的进位数，So, Co 分别为本位和与向相邻高位的进位数。</p>
+<p>真值表如下：</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th></th>
+<th></th>
+<th>Output</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ci</td>
+<td>Ai</td>
+<td>Bi</td>
+<td>So</td>
+<td>Co</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>全加器的表达式为：</p>
+<p>So &#x3D; Ai ⊕ Bi ⊕ Ci ;<br>Co &#x3D; AiBi + Ci(Ai+Bi)</p>
+<p>rtl 代码（full_adder1.v）如下：</p>
+<h3 id="实例-43"><a href="#实例-43" class="headerlink" title="实例"></a>实例</h3><p>module full_adder1(<br>    input    Ai, Bi, Ci,<br>    output   So, Co);</p>
+<p>      assign So = Ai ^ Bi ^ Ci ;<br>    assign Co = (Ai &amp; Bi) | (Ci &amp; (Ai | Bi));<br>endmodule</p>
+<p>当然，更为贴近加法器的代码描述可以为：</p>
+<h3 id="实例-44"><a href="#实例-44" class="headerlink" title="实例"></a>实例</h3><p>module full_adder1(<br>    input    Ai, Bi, Ci<br>    output   So, Co);</p>
+<p>      assign {Co, So} = Ai + Bi + Ci ;<br>endmodule</p>
+<p>testbench（test.sv）参考如下：</p>
+<h3 id="实例-45"><a href="#实例-45" class="headerlink" title="实例"></a>实例</h3><p>`timescale 1ns&#x2F;1ns</p>
+<p>  module test ;<br>    reg Ai, Bi, Ci ;<br>    wire So, Co ;</p>
+<p>      initial begin<br>        {Ai, Bi, Ci}      = 3’b0;<br>        forever begin<br>            #10 ;<br>            {Ai, Bi, Ci}      = {Ai, Bi, Ci} + 1’b1;<br>        end<br>    end</p>
+<p>      full_adder1  u_adder(<br>        .Ai      (Ai),<br>        .Bi      (Bi),<br>        .Ci      (Ci),<br>        .So      (So),<br>        .Co      (Co));</p>
+<p>      initial begin<br>        forever begin<br>            #100;<br>            &#x2F;&#x2F;$display(“—gyc—%d”, $time);<br>            if ($time &gt;&#x3D; 1000) begin<br>            $finish ;<br>            end<br>        end<br>    end</p>
+<p>   endmodule</p>
+<p>仿真结果如下：</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/09/4M42Qj6GPlgYzDy3.png"></p>
+<h3 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2020/09/runoob-verilog-3-1.zip">Download</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fylhg.github.io/github.fy">二马山石</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fylhg.github.io/github.fy/2024/05/25/Verilog%E8%AF%AD%E6%B3%95/">https://fylhg.github.io/github.fy/2024/05/25/Verilog%E8%AF%AD%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://fylhg.github.io/github.fy" target="_blank">FY的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/github.fy/tags/verilog/">verilog</a></div><div class="post_share"><div class="social-share" data-image="https://picx.zhimg.com/v2-8914ff9e3185a4a0e1ac1f7b037e9cb8_720w.jpg?source=172ae18b" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/github.fy/2024/05/24/FPGA%20-%20%E7%82%B9%E4%BA%AE%E7%AC%AC%E4%B8%80%E4%B8%AAled/" title="fpga-点亮第一个led"><img class="cover" src="https://img1.baidu.com/it/u=2942801448,4270513960&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=500&amp;h=281" onerror="onerror=null;src='/github.fy/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">fpga-点亮第一个led</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/github.fy/img/1.jpg" onerror="this.onerror=null;this.src='/github.fy/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">二马山石</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/github.fy/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/github.fy/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/github.fy/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-1-Verilog%E6%95%99%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">1.1 Verilog教程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%81%E9%80%82%E5%90%88%E9%98%85%E8%AF%BB%E6%9C%AC%E6%95%99%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">谁适合阅读本教程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E6%9C%AC%E6%95%99%E7%A8%8B%E5%89%8D%EF%BC%8C%E4%BD%A0%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E7%9F%A5%E8%AF%86"><span class="toc-number">1.2.</span> <span class="toc-text">阅读本教程前，你需要了解的知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA-Verilog-%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.1.</span> <span class="toc-text">第一个 Verilog 设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.2.2.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cat-Me"><span class="toc-number">1.3.</span> <span class="toc-text">Cat Me</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-2-Verilog%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">1.2 Verilog简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2"><span class="toc-number">2.0.1.</span> <span class="toc-text">发展历史</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%89%B9%E6%80%A7"><span class="toc-number">2.0.2.</span> <span class="toc-text">主要特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%BA%94%E7%94%A8"><span class="toc-number">2.0.3.</span> <span class="toc-text">主要应用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-3-Verilog%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">3.</span> <span class="toc-text">1.3 Verilog环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Quartus-II-%E5%AE%89%E8%A3%85"><span class="toc-number">3.0.1.</span> <span class="toc-text">Quartus II 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Modelsim-%E5%AE%89%E8%A3%85"><span class="toc-number">3.0.2.</span> <span class="toc-text">Modelsim 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B-Quartus-II-%E5%B7%A5%E7%A8%8B"><span class="toc-number">3.0.3.</span> <span class="toc-text">建立 Quartus II 工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Quartus-II-%E8%B0%83%E7%94%A8-Modelsim-%E4%BB%BF%E7%9C%9F"><span class="toc-number">3.0.4.</span> <span class="toc-text">Quartus II 调用 Modelsim 仿真</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.1.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-4-Verilog%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">1.4 Verilog设计方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95"><span class="toc-number">4.0.1.</span> <span class="toc-text">设计方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B"><span class="toc-number">4.0.2.</span> <span class="toc-text">设计流程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-1-Verilog%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">2.1 Verilog基础语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F"><span class="toc-number">5.0.1.</span> <span class="toc-text">格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-1"><span class="toc-number">5.0.2.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-2"><span class="toc-number">5.0.3.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A"><span class="toc-number">5.0.4.</span> <span class="toc-text">注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%E4%B8%8E%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">5.0.5.</span> <span class="toc-text">标识符与关键字</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Verilog%E6%95%B0%E5%80%BC%E8%A1%A8%E7%A4%BA"><span class="toc-number">6.</span> <span class="toc-text">Verilog数值表示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-3"><span class="toc-number">6.0.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E7%A7%8D%E7%B1%BB"><span class="toc-number">6.0.2.</span> <span class="toc-text">数值种类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E6%95%B0%E5%80%BC%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95"><span class="toc-number">6.0.3.</span> <span class="toc-text">整数数值表示方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-4"><span class="toc-number">6.0.4.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-5"><span class="toc-number">6.0.5.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%95%B0%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95"><span class="toc-number">6.0.6.</span> <span class="toc-text">实数表示方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95"><span class="toc-number">6.0.7.</span> <span class="toc-text">字符串表示方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-6"><span class="toc-number">6.0.8.</span> <span class="toc-text">实例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-3-Verilog%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">7.</span> <span class="toc-text">2.3 Verilog数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%BD%91%EF%BC%88wire%EF%BC%89"><span class="toc-number">7.0.1.</span> <span class="toc-text">线网（wire）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-7"><span class="toc-number">7.0.2.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88reg%EF%BC%89"><span class="toc-number">7.0.3.</span> <span class="toc-text">寄存器（reg）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-8"><span class="toc-number">7.0.4.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-9"><span class="toc-number">7.0.5.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%91%E9%87%8F"><span class="toc-number">7.0.6.</span> <span class="toc-text">向量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-10"><span class="toc-number">7.0.7.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-11"><span class="toc-number">7.0.8.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-12"><span class="toc-number">7.0.9.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-13"><span class="toc-number">7.0.10.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-14"><span class="toc-number">7.0.11.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%EF%BC%8C%E5%AE%9E%E6%95%B0%EF%BC%8C%E6%97%B6%E9%97%B4%E5%AF%84%E5%AD%98%E5%99%A8%E5%8F%98%E9%87%8F"><span class="toc-number">7.0.12.</span> <span class="toc-text">整数，实数，时间寄存器变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-15"><span class="toc-number">7.0.13.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-16"><span class="toc-number">7.0.14.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-17"><span class="toc-number">7.0.15.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">7.0.16.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-18"><span class="toc-number">7.0.17.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-19"><span class="toc-number">7.0.18.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">7.0.19.</span> <span class="toc-text">存储器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-20"><span class="toc-number">7.0.20.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0"><span class="toc-number">7.0.21.</span> <span class="toc-text">参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-21"><span class="toc-number">7.0.22.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">7.0.23.</span> <span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-22"><span class="toc-number">7.0.24.</span> <span class="toc-text">实例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-4-Verilog%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">8.</span> <span class="toc-text">2.4 Verilog表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">8.0.1.</span> <span class="toc-text">表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-23"><span class="toc-number">8.0.2.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="toc-number">8.0.3.</span> <span class="toc-text">操作数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-24"><span class="toc-number">8.0.4.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">8.0.5.</span> <span class="toc-text">操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">8.0.6.</span> <span class="toc-text">算术操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-25"><span class="toc-number">8.0.7.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-26"><span class="toc-number">8.0.8.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-27"><span class="toc-number">8.0.9.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-28"><span class="toc-number">8.0.10.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">8.0.11.</span> <span class="toc-text">关系操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-29"><span class="toc-number">8.0.12.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%89%E4%BB%B7%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">8.0.13.</span> <span class="toc-text">等价操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-30"><span class="toc-number">8.0.14.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">8.0.15.</span> <span class="toc-text">逻辑操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-31"><span class="toc-number">8.0.16.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">8.0.17.</span> <span class="toc-text">按位操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-32"><span class="toc-number">8.0.18.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E7%BA%A6%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">8.0.19.</span> <span class="toc-text">归约操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">8.0.20.</span> <span class="toc-text">移位操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-33"><span class="toc-number">8.0.21.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%BC%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">8.0.22.</span> <span class="toc-text">拼接操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-34"><span class="toc-number">8.0.23.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">8.0.24.</span> <span class="toc-text">条件操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-35"><span class="toc-number">8.0.25.</span> <span class="toc-text">实例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-5-Verilog%E7%BC%96%E8%AF%91%E6%8C%87%E4%BB%A4"><span class="toc-number">9.</span> <span class="toc-text">2.5 Verilog编译指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#define-undef"><span class="toc-number">9.0.1.</span> <span class="toc-text">&#96;define, &#96;undef</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-36"><span class="toc-number">9.0.2.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#include"><span class="toc-number">9.0.3.</span> <span class="toc-text">&#96;include</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#timescale"><span class="toc-number">9.0.4.</span> <span class="toc-text">&#96;timescale</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-37"><span class="toc-number">9.0.5.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-38"><span class="toc-number">9.0.6.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-39"><span class="toc-number">9.0.7.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#default-nettype"><span class="toc-number">9.0.8.</span> <span class="toc-text">&#96;default_nettype</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-40"><span class="toc-number">9.0.9.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-41"><span class="toc-number">9.0.10.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#resetall"><span class="toc-number">9.0.11.</span> <span class="toc-text">&#96;resetall</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#celldefine-endcelldefine"><span class="toc-number">9.0.12.</span> <span class="toc-text">&#96;celldefine, &#96;endcelldefine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-42"><span class="toc-number">9.0.13.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#unconnected-drive-nounconnected-drive"><span class="toc-number">9.0.14.</span> <span class="toc-text">&#96;unconnected_drive, &#96;nounconnected_drive</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-1-Verilog%E8%BF%9E%E7%BB%AD%E8%B5%8B%E5%80%BC"><span class="toc-number">10.</span> <span class="toc-text">3.1 Verilog连续赋值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D%EF%BC%9Aassign%EF%BC%8C-%E5%85%A8%E5%8A%A0%E5%99%A8"><span class="toc-number">10.0.1.</span> <span class="toc-text">关键词：assign， 全加器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%8A%A0%E5%99%A8"><span class="toc-number">10.0.2.</span> <span class="toc-text">全加器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-43"><span class="toc-number">10.0.3.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-44"><span class="toc-number">10.0.4.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-45"><span class="toc-number">10.0.5.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD"><span class="toc-number">10.0.6.</span> <span class="toc-text">源码下载</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/github.fy/2024/05/25/Verilog%E8%AF%AD%E6%B3%95/" title="verilog语法"><img src="https://picx.zhimg.com/v2-8914ff9e3185a4a0e1ac1f7b037e9cb8_720w.jpg?source=172ae18b" onerror="this.onerror=null;this.src='/github.fy/img/404.jpg'" alt="verilog语法"/></a><div class="content"><a class="title" href="/github.fy/2024/05/25/Verilog%E8%AF%AD%E6%B3%95/" title="verilog语法">verilog语法</a><time datetime="2024-05-25T03:19:49.606Z" title="发表于 2024-05-25 11:19:49">2024-05-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/github.fy/2024/05/24/FPGA%20-%20%E7%82%B9%E4%BA%AE%E7%AC%AC%E4%B8%80%E4%B8%AAled/" title="fpga-点亮第一个led"><img src="https://img1.baidu.com/it/u=2942801448,4270513960&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=500&amp;h=281" onerror="this.onerror=null;this.src='/github.fy/img/404.jpg'" alt="fpga-点亮第一个led"/></a><div class="content"><a class="title" href="/github.fy/2024/05/24/FPGA%20-%20%E7%82%B9%E4%BA%AE%E7%AC%AC%E4%B8%80%E4%B8%AAled/" title="fpga-点亮第一个led">fpga-点亮第一个led</a><time datetime="2024-05-24T14:30:05.151Z" title="发表于 2024-05-24 22:30:05">2024-05-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/github.fy/2024/05/23/FPGA/" title="fpga"><img src="https://img1.baidu.com/it/u=4248986468,2019673196&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=479&amp;h=320" onerror="this.onerror=null;this.src='/github.fy/img/404.jpg'" alt="fpga"/></a><div class="content"><a class="title" href="/github.fy/2024/05/23/FPGA/" title="fpga">fpga</a><time datetime="2024-05-23T12:21:07.639Z" title="发表于 2024-05-23 20:21:07">2024-05-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/github.fy/2024/05/21/ajax/" title="ajax">ajax</a><time datetime="2024-05-21T03:01:01.553Z" title="发表于 2024-05-21 11:01:01">2024-05-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/github.fy/2024/05/21/19.%E4%BA%91%E9%9B%A8/" title="woainihg">woainihg</a><time datetime="2024-05-21T03:01:01.552Z" title="发表于 2024-05-21 11:01:01">2024-05-21</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picx.zhimg.com/v2-8914ff9e3185a4a0e1ac1f7b037e9cb8_720w.jpg?source=172ae18b')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 二马山石</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat-btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/github.fy/js/utils.js?v=4.13.0"></script><script src="/github.fy/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script id="canvas_nest" defer="defer" color="(0,205,205)" opacity="0.7" zIndex="-1" count="99" mobile="true" src="/github.fy/%5Bobject%20Object%5D"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
