@@ -1,0 +1,366 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Qt | FY的博客</title><meta name="author" content="二马山石"><meta name="copyright" content="二马山石"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="QMainWindow和QActionQMainWindow是主窗口，在对主窗口进行设计的时候，需要主菜单上的工具栏，菜单栏，按钮的下来菜单，组件的快捷菜单都需要用到QAction类,我们可以设计多个QAction创建菜单和工具按钮。 工具栏QToolBar类通过QAction创建工具栏中的按钮，工具栏对应的就是QToolBar类。在ui界面项快速创建工具栏可以右击鼠标然后点击”Add Tool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt">
+<meta property="og:url" content="https://fylhg.github.io/github.fy/2024/08/05/QT%20-%20add/index.html">
+<meta property="og:site_name" content="FY的博客">
+<meta property="og:description" content="QMainWindow和QActionQMainWindow是主窗口，在对主窗口进行设计的时候，需要主菜单上的工具栏，菜单栏，按钮的下来菜单，组件的快捷菜单都需要用到QAction类,我们可以设计多个QAction创建菜单和工具按钮。 工具栏QToolBar类通过QAction创建工具栏中的按钮，工具栏对应的就是QToolBar类。在ui界面项快速创建工具栏可以右击鼠标然后点击”Add Tool">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://t8.baidu.com/it/u=4067589254,2956208776&fm=193">
+<meta property="article:published_time" content="2024-08-05T05:59:31.581Z">
+<meta property="article:modified_time" content="2024-08-05T06:00:21.222Z">
+<meta property="article:author" content="二马山石">
+<meta property="article:tag" content="Qt">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://t8.baidu.com/it/u=4067589254,2956208776&fm=193"><link rel="shortcut icon" href="/github.fy/img/favicon.png"><link rel="canonical" href="https://fylhg.github.io/github.fy/2024/08/05/QT%20-%20add/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/github.fy/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/github.fy/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Qt',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-05 14:00:21'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/github.fy/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/github.fy/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/github.fy/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/github.fy/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/github.fy/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/github.fy/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/github.fy/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/github.fy/link/"><i class="fa-fw fas fa-link"></i><span> 连接</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://t8.baidu.com/it/u=4067589254,2956208776&amp;fm=193')"><nav id="nav"><span id="blog-info"><a href="/github.fy/" title="FY的博客"><img class="site-icon" src="/github.fy/img/1.jpg"/><span class="site-name">FY的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/github.fy/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/github.fy/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/github.fy/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/github.fy/link/"><i class="fa-fw fas fa-link"></i><span> 连接</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Qt</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-05T05:59:31.581Z" title="发表于 2024-08-05 13:59:31">2024-08-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-05T06:00:21.222Z" title="更新于 2024-08-05 14:00:21">2024-08-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/github.fy/categories/Qt/">Qt</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Qt"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="QMainWindow和QAction"><a href="#QMainWindow和QAction" class="headerlink" title="QMainWindow和QAction"></a>QMainWindow和QAction</h2><p>QMainWindow是主窗口，在对主窗口进行设计的时候，需要主菜单上的工具栏，菜单栏，按钮的下来菜单，组件的快捷菜单都需要用到QAction类,我们可以设计多个QAction创建菜单和工具按钮。</p>
+<h3 id="工具栏QToolBar类"><a href="#工具栏QToolBar类" class="headerlink" title="工具栏QToolBar类"></a>工具栏QToolBar类</h3><p>通过QAction创建工具栏中的按钮，工具栏对应的就是QToolBar类。<br>在ui界面项快速创建工具栏可以右击鼠标然后点击”Add Tool Bar”即可。<br>QToolBar的主要属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性名称</th>
+<th>属性值类型</th>
+<th>含义和作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>movable</td>
+<td>bool</td>
+<td>工具栏是否可以动</td>
+</tr>
+<tr>
+<td>allowedAreas</td>
+<td>Qt::ToolBarAreas</td>
+<td>工具栏可以放置的窗口区域</td>
+</tr>
+<tr>
+<td>orientation</td>
+<td>Qt::Orientation</td>
+<td>工具栏的方向：水平、垂直</td>
+</tr>
+<tr>
+<td>iconSize</td>
+<td>QSize</td>
+<td>图标大小</td>
+</tr>
+<tr>
+<td>toolButtonStyle</td>
+<td>Qt::ToolButtonStyle</td>
+<td>工具按钮样式</td>
+</tr>
+<tr>
+<td>floatavle</td>
+<td>bool</td>
+<td>工具栏是否可浮动</td>
+</tr>
+</tbody></table>
+<p>ToolButtonStyle:</p>
+<ul>
+<li>Qt::ToolButtonIconOnly:只显示图标</li>
+<li>Qt::ToolButtonTextOnly:只显示文字</li>
+<li>Qt::ToolButtonTextBesideIcon:文字显示在图标旁边</li>
+<li>Qt::ToolButtonTextUnderIcon:文字显示在图标下面</li>
+<li>Qt::ToolButtonFollowStyle:由QStyle样式定义</li>
+</ul>
+<p><strong>由于有些组件不能直接添加在工具栏中，只能通过QToolBar提供的函数接口来创建</strong></p>
+<ul>
+<li>void addAction(QAction*action)&#x2F;&#x2F;添加一个Action，并根据Action设置自动创建按钮</li>
+<li>QAction <em>addWidget(QWidget</em>widget)&#x2F;&#x2F;添加一个界面组件</li>
+<li>QAction <em>insertWidget(QAction</em>before,QWidget*widget)&#x2F;&#x2F;插入一个界面组件</li>
+<li>QAction *addSeperator()&#x2F;&#x2F;添加一个分隔条</li>
+<li>QAction *insertSeperator(QAction *before)&#x2F;&#x2F;插入一个分隔条</li>
+</ul>
+<h3 id="QAction的信号"><a href="#QAction的信号" class="headerlink" title="QAction的信号"></a>QAction的信号</h3><ul>
+<li>void hovered()    &#x2F;&#x2F;鼠标移动到此Action创建的菜单项或工具按钮上时</li>
+<li>void toggled(bool checked)    &#x2F;&#x2F;checked属性变化时</li>
+<li>void triggered(bool checked&#x3D;false)    &#x2F;&#x2F;点击用此Action创建的菜单项或工具栏按钮时</li>
+</ul>
+<h3 id="QAction公有槽"><a href="#QAction公有槽" class="headerlink" title="QAction公有槽"></a>QAction公有槽</h3><ul>
+<li>void hover()  &#x2F;&#x2F;触发hovered()信号</li>
+<li>void toggle() &#x2F;&#x2F;反转checked属性</li>
+<li>void trigger()&#x2F;&#x2F;触发triggered()信号</li>
+</ul>
+<h3 id="QActionGroup"><a href="#QActionGroup" class="headerlink" title="QActionGroup"></a>QActionGroup</h3><p>QActionGroup是 Qt 框架中的一个类，用于将多个 QAction 对象分组，使它们在用户界面中表现为互斥的选项。通常用于实现单选按钮组的功能，即用户只能选择其中的一个选项。<br>使用 QActionGroup 的步骤</p>
+<ul>
+<li><p>创建 QActionGroup 实例：<br>你需要创建一个 QActionGroup 对象，用于管理一组 QAction 对象。</p>
+</li>
+<li><p>创建 QAction 对象：<br>创建多个 QAction 对象，并将它们QActionGroup-&gt;addAction()添加到 QActionGroup 中。</p>
+</li>
+<li><p>将 QAction 添加到菜单或工具栏：<br>将 QAction 对象添加到菜单或工具栏中，以便在用户界面中显示。</p>
+</li>
+</ul>
+<h3 id="QFontComBox"><a href="#QFontComBox" class="headerlink" title="QFontComBox"></a>QFontComBox</h3><ul>
+<li><p>创建 QFontComboBox 实例：<br>你需要创建一个 QFontComboBox 对象，并将其添加到你的界面中。</p>
+</li>
+<li><p>连接信号和槽：<br>可以将 QFontComboBox 的信号连接到自定义的槽，以响应用户选择字体的变化。</p>
+</li>
+<li><p>设置和获取字体：<br>可以通过 QFontComboBox 获取用户选择的字体，并进行相应的处理，比如应用到文本中。</p>
+</li>
+<li><p>设置互斥行为：setExclusive()<br>QActionGroup 自动将组内的 QAction 设为互斥的，即同一时间只能选择一个 QAction。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ui-&gt;fontComboBox-&gt;<span class="built_in">setCurrentFont</span>(<span class="built_in">QFont</span>(<span class="string">&quot;黑体&quot;</span>));	<span class="comment">//设置字体</span></span><br><span class="line">ui-&gt;fontComboBox-&gt;<span class="built_in">currentFont</span>();				<span class="comment">//获取字体</span></span><br><span class="line"></span><br><span class="line">ui-&gt;fontComboBox-&gt;<span class="built_in">setFontFilters</span>(QFontComboBox::ScalableFonts);<span class="comment">//过滤字体</span></span><br><span class="line"><span class="comment">//    AllFonts = 0,             //所有字体</span></span><br><span class="line"><span class="comment">//    ScalableFonts = 0x1,      //可缩放</span></span><br><span class="line"><span class="comment">//    NonScalableFonts = 0x2,   //不可缩放</span></span><br><span class="line"><span class="comment">//    MonospacedFonts = 0x4,    //等宽字体</span></span><br><span class="line"><span class="comment">//    ProportionalFonts = 0x8   //比例字体</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p><img src="/github.fy/Qt/33.png"></p>
+<h2 id="QToolButton和QListWidget"><a href="#QToolButton和QListWidget" class="headerlink" title="QToolButton和QListWidget"></a>QToolButton和QListWidget</h2><p>总结<br>Item Views：基于模型&#x2F;视图架构，适用于需要高效处理大量数据的场景。视图和数据分离，适合复杂的数据展示和交互需求。<br>Item Widgets：直接在视图中嵌入小部件，适用于数据量不大且需要复杂小部件的场景。视图和数据紧密结合，操作简单直观。</p>
+<h3 id="QToolButton"><a href="#QToolButton" class="headerlink" title="QToolButton"></a>QToolButton</h3><h4 id="QToolBox组件"><a href="#QToolBox组件" class="headerlink" title="QToolBox组件"></a>QToolBox组件</h4><p>QToolBox是一个工具箱组件类，工具箱是一种支持垂直分页的多页容器组件<br>使用Insert Page和Delete Page添加菜单和删除。<br>工具箱的每一个页面就是一个QWidget组件</p>
+<p>QToolBox有一个信号：</p>
+<ul>
+<li>void QToolBox::currentChanged(int index)&#x2F;&#x2F;在切换当前页面组件的时候发射这个信号</li>
+</ul>
+<h4 id="QToolButton属性"><a href="#QToolButton属性" class="headerlink" title="QToolButton属性"></a>QToolButton属性</h4><ul>
+<li>popupMode属性<ul>
+<li>属性值是：枚举类型QToolButton::ToolButtonPopupMode,当按钮有下拉菜单的时候，这个属性决定了菜单的模式</li>
+<li>QToolButton::DelayedPopup:按下按钮过一会才会显示下拉菜单</li>
+<li>QToolButton::MenuButtonPopup:会在按钮右侧给一个箭头，按下显示菜单，执行绑定的Action</li>
+<li>QToolButton::InstanPopup:会在按钮右侧给一个箭头，按下立刻显示菜单，不会执行绑定的Action</li>
+</ul>
+</li>
+<li>toolButtonStyle属性<ul>
+<li>属性值是：Qt::QToolButtonStyle,表示工具按钮上的图标和文字显示方式</li>
+</ul>
+</li>
+<li>autoRaise属性<ul>
+<li>属性值是：设置边框，设置为true那么就没有边框</li>
+</ul>
+</li>
+<li>arrowType属性：<ul>
+<li>属性值是：Qt::ArrowType有没有箭头</li>
+</ul>
+</li>
+</ul>
+<h4 id="QToolButton其他接口函数"><a href="#QToolButton其他接口函数" class="headerlink" title="QToolButton其他接口函数"></a>QToolButton其他接口函数</h4><ul>
+<li><code>setDefaultAction()函数</code>：<ul>
+<li>用于为工具按钮绑定Action，绑定以后工具栏按钮的文本，图标等与Action一样，</li>
+<li>工具按钮的trigger()信号自动关联Action的trigger()函数</li>
+<li>代码：<code>void QToolBox::setDefaultAction(QAction*action)</code></li>
+</ul>
+</li>
+<li>setMenu()函数<ul>
+<li>用于为工具按钮设计下拉菜单</li>
+<li>代码：<code>void QToolBox::setMenu(QMenu*menu)</code></li>
+</ul>
+</li>
+<li>setIcon()函数<ul>
+<li>用来给toolButton设置图标</li>
+</ul>
+</li>
+<li>setText()函数</li>
+<li>setToolButtonStyle()函数<ul>
+<li>设置toolButton的样式</li>
+<li>QToolButton::DelayedPopup:按下按钮过一会才会显示下拉菜单</li>
+<li>QToolButton::MenuButtonPopup:会在按钮右侧给一个箭头，按下显示菜单，执行绑定的Action</li>
+<li>QToolButton::InstanPopup:会在按钮右侧给一个箭头，按下立刻显示菜单，不会执行绑定的Action</li>
+</ul>
+</li>
+<li>setPopUpMode()函数</li>
+</ul>
+<h3 id="QMenu配合QToolButton-setMenu"><a href="#QMenu配合QToolButton-setMenu" class="headerlink" title="QMenu配合QToolButton::setMenu()"></a>QMenu配合QToolButton::setMenu()</h3><p>用来实现将Action放到工具按钮中成一个下拉菜单<br>QMenu是管理菜单的类，它的父类是QWidget，菜单实际是一一种窗口。</p>
+<p><code>QMenu提供的接口函数：</code></p>
+<ul>
+<li>void QWidget::addAction(QAction *action)  &#x2F;&#x2F;添加Action创建菜单项</li>
+<li>QAction *QMenu::addMenu(QMenu *menu)  &#x2F;&#x2F;添加菜单，创建子菜单</li>
+<li>QAction *QMenu::addSeparator()    &#x2F;&#x2F;添加一个分隔条</li>
+</ul>
+<h3 id="QListWidget"><a href="#QListWidget" class="headerlink" title="QListWidget"></a>QListWidget</h3><h4 id="QListWidgetItem"><a href="#QListWidgetItem" class="headerlink" title="QListWidgetItem"></a>QListWidgetItem</h4><p>QListWidgetItem是在设置QListWidget的每一项，每一项都是QListWidgetItem对象。</p>
+<p>然后QListWidgetItem提供了一系列函数对每一项的Text,Icon,Data,Flags,CheckState,Selected进行设置</p>
+<ul>
+<li>setText()</li>
+<li>setIcon(QIcon&amp;icon)  需要先用QIcon icon定义图标配置资源文件路径icon-&gt;addFile(“文件路径”)</li>
+<li>setData()     注意下获取到的数据是QVariant类型的</li>
+<li>setFlags()    设置项的特性Qt::ItemFlags的枚举类型<ul>
+<li>Qt::ItemIsEditable 允许编辑</li>
+<li>Qt::ItemIsSelectable  允许选中</li>
+<li>Qt::ItemIsUserCheckable 前面会加一个选中的复选框</li>
+<li>Qt::ItemIsEnabled 是否可用</li>
+</ul>
+</li>
+</ul>
+<h4 id="QListWidget提供的借口函数"><a href="#QListWidget提供的借口函数" class="headerlink" title="QListWidget提供的借口函数"></a>QListWidget提供的借口函数</h4><p>添加或删除项：</p>
+<ul>
+<li>addItem()和addItems()</li>
+<li>insertItem()和insertItems()</li>
+<li>QListWidgetItem*takeItem()    从列表组件中删除一个项，并返回这个项的对象指针，要想完全删除得把这个指针也删了</li>
+<li>clear()   全删了<br>项的访问：</li>
+<li>QListWidgetItem *currentItem()</li>
+<li>void setCurentItem()  设置当前项</li>
+<li>QListWidgetItem*item()    根据行号返回一个item</li>
+<li>int currentRow()  返回当前的行号，-1表示没有</li>
+<li>void setCurentRow 设置当前行</li>
+<li>int row() 返回一个项所在的行号</li>
+<li>int count()   返回列表中项的个数<br>排序：</li>
+<li>void setSortingEnable()   设置列表是否可排序</li>
+<li>void isSortingEnabled()   列表是否可排序</li>
+<li>void sortItems()  对列表进行排序，可指定为升序或者降序</li>
+</ul>
+<h3 id="创建右击快捷菜单"><a href="#创建右击快捷菜单" class="headerlink" title="创建右击快捷菜单"></a>创建右击快捷菜单</h3><p>每个继承QWidget的类都有customContextMenuRequested()信号<br>要使QWidget的组件可以发射这个信号需要设置其contextMenuPolicy属性：</p>
+<ul>
+<li>void QWidget::setContextMenuPolicy<br>  有以下几种枚举值：<ul>
+<li>Qt::NoContextMenu:组件没有快捷菜单，由父容器处理</li>
+<li>Qt::PreventContextMenu:阻止快捷菜单，并且右击鼠标事件不会交给父容器处理</li>
+<li>Qt::DefaultContextMenu:默认快捷菜单</li>
+<li>Qt::ActionsContextMenu:自动根据QWidget::actions()返回的Action创建并显示快捷菜单</li>
+<li>Qt::CustomContextMenu:组件发射 customContextMenuRequested()信号，自己写槽函数创建菜单</li>
+</ul>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fylhg.github.io/github.fy">二马山石</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fylhg.github.io/github.fy/2024/08/05/QT%20-%20add/">https://fylhg.github.io/github.fy/2024/08/05/QT%20-%20add/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://fylhg.github.io/github.fy" target="_blank">FY的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/github.fy/tags/Qt/">Qt</a></div><div class="post_share"><div class="social-share" data-image="https://t8.baidu.com/it/u=4067589254,2956208776&amp;fm=193" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/github.fy/2024/07/31/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE/" title="leetcode"><img class="cover" src="/github.fy/img/404.jpg" onerror="onerror=null;src='/github.fy/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">leetcode</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/github.fy/2024/07/21/QT/" title="Qt"><img class="cover" src="https://t8.baidu.com/it/u=4067589254,2956208776&fm=193" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-21</div><div class="title">Qt</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/github.fy/img/1.jpg" onerror="this.onerror=null;this.src='/github.fy/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">二马山石</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/github.fy/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/github.fy/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/github.fy/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#QMainWindow%E5%92%8CQAction"><span class="toc-number">1.</span> <span class="toc-text">QMainWindow和QAction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E6%A0%8FQToolBar%E7%B1%BB"><span class="toc-number">1.1.</span> <span class="toc-text">工具栏QToolBar类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#QAction%E7%9A%84%E4%BF%A1%E5%8F%B7"><span class="toc-number">1.2.</span> <span class="toc-text">QAction的信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#QAction%E5%85%AC%E6%9C%89%E6%A7%BD"><span class="toc-number">1.3.</span> <span class="toc-text">QAction公有槽</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#QActionGroup"><span class="toc-number">1.4.</span> <span class="toc-text">QActionGroup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#QFontComBox"><span class="toc-number">1.5.</span> <span class="toc-text">QFontComBox</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B"><span class="toc-number">1.6.</span> <span class="toc-text">案例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#QToolButton%E5%92%8CQListWidget"><span class="toc-number">2.</span> <span class="toc-text">QToolButton和QListWidget</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#QToolButton"><span class="toc-number">2.1.</span> <span class="toc-text">QToolButton</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#QToolBox%E7%BB%84%E4%BB%B6"><span class="toc-number">2.1.1.</span> <span class="toc-text">QToolBox组件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#QToolButton%E5%B1%9E%E6%80%A7"><span class="toc-number">2.1.2.</span> <span class="toc-text">QToolButton属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#QToolButton%E5%85%B6%E4%BB%96%E6%8E%A5%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="toc-number">2.1.3.</span> <span class="toc-text">QToolButton其他接口函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#QMenu%E9%85%8D%E5%90%88QToolButton-setMenu"><span class="toc-number">2.2.</span> <span class="toc-text">QMenu配合QToolButton::setMenu()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#QListWidget"><span class="toc-number">2.3.</span> <span class="toc-text">QListWidget</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#QListWidgetItem"><span class="toc-number">2.3.1.</span> <span class="toc-text">QListWidgetItem</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#QListWidget%E6%8F%90%E4%BE%9B%E7%9A%84%E5%80%9F%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="toc-number">2.3.2.</span> <span class="toc-text">QListWidget提供的借口函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%8F%B3%E5%87%BB%E5%BF%AB%E6%8D%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">2.4.</span> <span class="toc-text">创建右击快捷菜单</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/github.fy/2024/08/05/QT%20-%20add/" title="Qt"><img src="https://t8.baidu.com/it/u=4067589254,2956208776&amp;fm=193" onerror="this.onerror=null;this.src='/github.fy/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/github.fy/2024/08/05/QT%20-%20add/" title="Qt">Qt</a><time datetime="2024-08-05T05:59:31.581Z" title="发表于 2024-08-05 13:59:31">2024-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/github.fy/2024/07/31/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE/" title="leetcode"><img src="/github.fy/img/404.jpg" onerror="this.onerror=null;this.src='/github.fy/img/404.jpg'" alt="leetcode"/></a><div class="content"><a class="title" href="/github.fy/2024/07/31/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE/" title="leetcode">leetcode</a><time datetime="2024-07-31T08:42:06.141Z" title="发表于 2024-07-31 16:42:06">2024-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/github.fy/2024/07/21/QT/" title="Qt"><img src="https://t8.baidu.com/it/u=4067589254,2956208776&amp;fm=193" onerror="this.onerror=null;this.src='/github.fy/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/github.fy/2024/07/21/QT/" title="Qt">Qt</a><time datetime="2024-07-21T05:50:00.611Z" title="发表于 2024-07-21 13:50:00">2024-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/github.fy/2024/07/12/C++/" title="c++"><img src="https://img2.baidu.com/it/u=1339810107,1799612389&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=512&amp;h=328" onerror="this.onerror=null;this.src='/github.fy/img/404.jpg'" alt="c++"/></a><div class="content"><a class="title" href="/github.fy/2024/07/12/C++/" title="c++">c++</a><time datetime="2024-07-12T07:18:51.931Z" title="发表于 2024-07-12 15:18:51">2024-07-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/github.fy/2024/07/04/esp32%E7%AC%94%E8%AE%B0/" title="esp32"><img src="http://micropython.86x.net/en/latet/_images/esp32.jpg" onerror="this.onerror=null;this.src='/github.fy/img/404.jpg'" alt="esp32"/></a><div class="content"><a class="title" href="/github.fy/2024/07/04/esp32%E7%AC%94%E8%AE%B0/" title="esp32">esp32</a><time datetime="2024-07-04T05:46:02.527Z" title="发表于 2024-07-04 13:46:02">2024-07-04</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://t8.baidu.com/it/u=4067589254,2956208776&amp;fm=193')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 二马山石</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat-btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/github.fy/js/utils.js?v=4.13.0"></script><script src="/github.fy/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script id="canvas_nest" defer="defer" color="(0,205,205)" opacity="0.7" zIndex="-1" count="99" mobile="true" src="/github.fy/%5Bobject%20Object%5D"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
