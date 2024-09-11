@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img1.baidu.com/it/u=2942801448,4270513960&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281">
 <meta property="article:published_time" content="2024-05-24T14:30:05.151Z">
-<meta property="article:modified_time" content="2024-09-11T09:00:57.022Z">
+<meta property="article:modified_time" content="2024-09-11T09:12:34.198Z">
 <meta property="article:author" content="二马山石">
 <meta property="article:tag" content="fpga">
 <meta name="twitter:card" content="summary">
@@ -56,7 +56,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-09-11 17:00:57'
+  postUpdate: '2024-09-11 17:12:34'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -174,7 +174,7 @@
     document.addEventListener('pjax:send', () => { preloader.initLoading() })
     document.addEventListener('pjax:complete', () => { preloader.endLoading() })
   }
-})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/github.fy/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/github.fy/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/github.fy/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/github.fy/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/github.fy/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/github.fy/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/github.fy/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/github.fy/link/"><i class="fa-fw fas fa-link"></i><span> 连接</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img1.baidu.com/it/u=2942801448,4270513960&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=500&amp;h=281')"><nav id="nav"><span id="blog-info"><a href="/github.fy/" title="FY的博客"><img class="site-icon" src="/github.fy/img/1.jpg"/><span class="site-name">FY的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/github.fy/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/github.fy/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/github.fy/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/github.fy/link/"><i class="fa-fw fas fa-link"></i><span> 连接</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">fpga-点亮第一个led</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-24T14:30:05.151Z" title="发表于 2024-05-24 22:30:05">2024-05-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-11T09:00:57.022Z" title="更新于 2024-09-11 17:00:57">2024-09-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/github.fy/categories/fpga/">fpga</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="fpga-点亮第一个led"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><a target="_blank" rel="noopener" href="https://doc.embedfire.com/fpga/altera/ep4ce10_mini/zh/latest/index.html">[野火]FPGA Verilog开发实战指南——基于Altera EP4CE10 征途Mini开发板</a></p>
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/github.fy/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/github.fy/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/github.fy/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/github.fy/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/github.fy/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/github.fy/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/github.fy/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/github.fy/link/"><i class="fa-fw fas fa-link"></i><span> 连接</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img1.baidu.com/it/u=2942801448,4270513960&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=500&amp;h=281')"><nav id="nav"><span id="blog-info"><a href="/github.fy/" title="FY的博客"><img class="site-icon" src="/github.fy/img/1.jpg"/><span class="site-name">FY的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/github.fy/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/github.fy/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/github.fy/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/github.fy/link/"><i class="fa-fw fas fa-link"></i><span> 连接</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">fpga-点亮第一个led</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-24T14:30:05.151Z" title="发表于 2024-05-24 22:30:05">2024-05-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-11T09:12:34.198Z" title="更新于 2024-09-11 17:12:34">2024-09-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/github.fy/categories/fpga/">fpga</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="fpga-点亮第一个led"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><a target="_blank" rel="noopener" href="https://doc.embedfire.com/fpga/altera/ep4ce10_mini/zh/latest/index.html">[野火]FPGA Verilog开发实战指南——基于Altera EP4CE10 征途Mini开发板</a></p>
 <p><a target="_blank" rel="noopener" href="https://detail.tmall.com/item.htm?spm=a1z10.5-b-s.w4011-23268010681.61.57491550QDVCO3&id=620698035547&rn=e00cc4fa5edac965f85f43020a263844&abbucket=18"><img src="https://doc.embedfire.com/fpga/altera/ep4ce10_mini/zh/latest/_static/images/product.png" alt="产品图片"></a></p>
 <p>野火征途Mini FPGA开发板，采用Altera EP4CE10F17C8作为主控，包含了FPGA入门必备的硬件，是FPGA入门的性价比之选。</p>
 <ul>
@@ -2216,46 +2216,40 @@ input wire sel, //选择端
 <p>图 19‑4 按键消抖模块框图</p>
 <p>端口列表与功能总结如表格 19‑1所示。</p>
 <p>表格 19‑1 端口列表与功能总结</p>
-<p>|<br><strong>信号</strong></p>
-<p> | </p>
-<p><strong>位宽</strong></p>
-<p> | </p>
-<p><strong>类型</strong></p>
-<p> | </p>
-<p><strong>功能描述</strong></p>
-<p> |<br>| — | — | — | — |<br>| </p>
-<p>sys_clk</p>
-<p> | </p>
-<p>1Bit</p>
-<p> | </p>
-<p>Input</p>
-<p> | </p>
-<p>工作时钟，频率50Mhz</p>
-<p> |<br>| </p>
-<p>sys_rst_n</p>
-<p> | </p>
-<p>1Bit</p>
-<p> | </p>
-<p>Input</p>
-<p> | </p>
-<p>复位信号，低电平有效</p>
-<p> |<br>| </p>
-<p>key_in</p>
-<p> | </p>
-<p>1Bit</p>
-<p> | </p>
-<p>Input</p>
-<p> | </p>
-<p>按键的输入</p>
-<p> |<br>| </p>
-<p>key_flag</p>
-<p> | </p>
-<p>1Bit</p>
-<p> | </p>
-<p>Output</p>
-<p> | </p>
-<p>去抖后按键被按下的标志信号</p>
-<p> |</p>
+<table>
+<thead>
+<tr>
+<th><strong>信号</strong></th>
+<th><strong>位宽</strong></th>
+<th><strong>类型</strong></th>
+<th><strong>功能描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sys_clk</td>
+<td>1Bit</td>
+<td>Input</td>
+<td>工作时钟，频率50Mhz</td>
+</tr>
+<tr>
+<td>sys_rst_n</td>
+<td>1Bit</td>
+<td>Input</td>
+<td>复位信号，低电平有效</td>
+</tr>
+<tr>
+<td>key_in</td>
+<td>1Bit</td>
+<td>Input</td>
+<td>按键的输入</td>
+</tr>
+<tr>
+<td>key_flag</td>
+<td>1Bit</td>
+<td>Output</td>
+<td>去抖后按键被按下的标志信号</td>
+</tr>
+</tbody></table>
 <h4 id="9-3-2-2-波形图绘制¶"><a href="#9-3-2-2-波形图绘制¶" class="headerlink" title="9.3.2.2. 波形图绘制¶"></a>9.3.2.2. 波形图绘制<a href="#id10" title="永久链接至标题">¶</a></h4><p>首先我们从实际问题出发，分析抖动的本质，再想办法去消除抖动。我们先把波形图的三个输入信号画好，抖动我们就模拟和真实中的情况一样，即当按键被按下和按键被释放时都会有抖动，也就是有前抖动和后抖动，这两种抖动都会对我们的设计产生一定的影响，会让我们的系统误判为按键被多次按下。我们需要做的就是要准确判断出稳 定的按下的那一次状态。</p>
 <p><a target="_blank" rel="noopener" href="https://doc.embedfire.com/fpga/altera/ep4ce10_mini/zh/latest/_images/Key006.png"><img src="https://doc.embedfire.com/fpga/altera/ep4ce10_mini/zh/latest/_images/Key006.png" alt="Key006"></a></p>
 <p>图 19‑5 按键消抖模块波形图（一）</p>
