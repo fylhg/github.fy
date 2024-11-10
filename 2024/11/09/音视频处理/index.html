@@ -1,0 +1,252 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ffmpeg | FY的博客</title><meta name="author" content="二马山石"><meta name="copyright" content="二马山石"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="音视频基础音视频录制原理 音视频播放原理    其中涉及到同步控制时，要根据实际情况来实现因为有可能同步控制会在音频处理和图像处理的后面 图像表示RGB-YUV像素像素是图片的基本单位，“pixel”简称px2500×2000的意思就是横向有2500个像素点，竖向有2000个像素点，总共有500万个像素点 分辨率分辨率指的是图像的大小尺寸常见的分辨率：  360p(640360),720p(128">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ffmpeg">
+<meta property="og:url" content="https://fylhg.github.io/github.fy/2024/11/09/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/index.html">
+<meta property="og:site_name" content="FY的博客">
+<meta property="og:description" content="音视频基础音视频录制原理 音视频播放原理    其中涉及到同步控制时，要根据实际情况来实现因为有可能同步控制会在音频处理和图像处理的后面 图像表示RGB-YUV像素像素是图片的基本单位，“pixel”简称px2500×2000的意思就是横向有2500个像素点，竖向有2000个像素点，总共有500万个像素点 分辨率分辨率指的是图像的大小尺寸常见的分辨率：  360p(640360),720p(128">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://so1.360tres.com/t019fc28863fbede04d.png">
+<meta property="article:published_time" content="2024-11-09T08:09:29.451Z">
+<meta property="article:modified_time" content="2024-11-10T07:44:56.199Z">
+<meta property="article:author" content="二马山石">
+<meta property="article:tag" content="ffmpeg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://so1.360tres.com/t019fc28863fbede04d.png"><link rel="shortcut icon" href="/github.fy/img/favicon.png"><link rel="canonical" href="https://fylhg.github.io/github.fy/2024/11/09/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/github.fy/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/github.fy/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ffmpeg',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-10 15:44:56'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/github.fy/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/github.fy/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/github.fy/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/github.fy/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/github.fy/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/github.fy/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/github.fy/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/github.fy/link/"><i class="fa-fw fas fa-link"></i><span> 连接</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://so1.360tres.com/t019fc28863fbede04d.png')"><nav id="nav"><span id="blog-info"><a href="/github.fy/" title="FY的博客"><img class="site-icon" src="/github.fy/img/1.jpg"/><span class="site-name">FY的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/github.fy/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/github.fy/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/github.fy/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/github.fy/link/"><i class="fa-fw fas fa-link"></i><span> 连接</span></a></div><div class="menus_item"><a class="site-page" href="/github.fy/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ffmpeg</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-09T08:09:29.451Z" title="发表于 2024-11-09 16:09:29">2024-11-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-10T07:44:56.199Z" title="更新于 2024-11-10 15:44:56">2024-11-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/github.fy/categories/ffmpeg/">ffmpeg</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ffmpeg"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="音视频基础"><a href="#音视频基础" class="headerlink" title="音视频基础"></a>音视频基础</h1><h2 id="音视频录制原理"><a href="#音视频录制原理" class="headerlink" title="音视频录制原理"></a>音视频录制原理</h2><p><img src="/github.fy/ffmpeg/1.png"></p>
+<h2 id="音视频播放原理"><a href="#音视频播放原理" class="headerlink" title="音视频播放原理"></a>音视频播放原理</h2><p><img src="/github.fy/ffmpeg/2.png"><br>    其中涉及到同步控制时，要根据实际情况来实现因为有可能同步控制会在音频处理和<br>图像处理的后面</p>
+<h2 id="图像表示RGB-YUV"><a href="#图像表示RGB-YUV" class="headerlink" title="图像表示RGB-YUV"></a>图像表示RGB-YUV</h2><h3 id="像素"><a href="#像素" class="headerlink" title="像素"></a>像素</h3><p>像素是图片的基本单位，“pixel”简称px<br>2500×2000的意思就是横向有2500个像素点，竖向有2000个像素点，总共有500万个像素点</p>
+<h3 id="分辨率"><a href="#分辨率" class="headerlink" title="分辨率"></a>分辨率</h3><p>分辨率指的是图像的大小尺寸<br>常见的分辨率：</p>
+<ul>
+<li>360p(640<em>360),720p(1280</em>720),1080p(1920<em>1080),4k(3840</em>2160),8k(7680*4320)<br>（分辨率越高图像越清晰）</li>
+</ul>
+<h3 id="位深"><a href="#位深" class="headerlink" title="位深"></a>位深</h3><p>彩色图片都有三个通道（RGB）<br>每个通道用8bit来表示，能表示256<em>256</em>256中颜色<br>其中8bit就是<strong>位深</strong><br><strong>每个通道的位深越大能表示的颜色就越多</strong></p>
+<h3 id="帧率"><a href="#帧率" class="headerlink" title="帧率"></a>帧率</h3><ul>
+<li>定义：帧率表示在一秒钟内连续显示的静态图像的数量。每一帧都是一个静态图像，连续播放这些静态图像，由于人眼的视觉暂留效应，我们看到的是连续运动的画面。</li>
+<li>流畅度：帧率越高，视频或动画看起来就越流畅。常见的帧率有24 fps、30 fps、60 fps等。电影通常使用24 fps，而许多现代电子游戏和高清视频流则使用60 fps或更高。</li>
+<li>视觉体验：不同的帧率对视觉体验有显著影响。例如，24 fps给人以电影的感觉，而60 fps则给人以更加真实和流畅的体验，尤其是在快速运动的场景中。</li>
+<li>资源消耗：帧率越高，意味着每秒钟需要处理和显示更多的帧，这会消耗更多的计算资源、存储空间和带宽。因此，在资源有限的情况下，需要在帧率和资源消耗之间做出权衡。</li>
+</ul>
+<h3 id="码率"><a href="#码率" class="headerlink" title="码率"></a>码率</h3><ul>
+<li><p>视频文件在单位时间内使用的数据流量。比如：1Mbps</p>
+</li>
+<li><p>大多数情况下，码率越高也就越清晰。但是比如在网上拍的图片很模糊但是码率却很高，<br>分辨率小的视频可能比分辨率大的视频文件清晰</p>
+</li>
+<li><p>对于同一个原始图像像源时，同样的编码算法，码率越高，图像的失真就会越少，视频画面就会越清晰</p>
+</li>
+</ul>
+<h3 id="RGB"><a href="#RGB" class="headerlink" title="RGB"></a>RGB</h3><ul>
+<li>RGB的排序，由于算法的要求所以对于RGB的排列也有不同的要求<br><img src="/github.fy/ffmpeg/3.png"></li>
+</ul>
+<h3 id="YUV"><a href="#YUV" class="headerlink" title="YUV"></a>YUV</h3><p>Y：亮度（Luminance）或亮度分量，代表了灰度信息，是彩色图像中的黑白部分。Y分量可以单独使用，形成灰度图像。<br>U（有时也写作Cb，即蓝色差）：色度分量之一，表示蓝色与亮度的差值。它描述了图像中蓝色成分的浓度。<br>V（有时也写作Cr，即红色差）：色度分量之二，表示红色与亮度的差值。它描述了图像中红色成分的浓度。</p>
+<ul>
+<li><p>YUMN也是一种颜色编码方式，它将亮度参量Y(Luma)和色度参量(UV:Chroma)分开进行表示的编码格式</p>
+</li>
+<li><p>这样可以避免相互干扰，没有UV信息一样可以显示完整的图像<br>  解决了彩色电视和黑白电视的兼容问题，还可以降低色度的采样率而不会对图像质量影响太大，降低了<br>  视频信号传输时对于频宽的要求</p>
+</li>
+<li><p>YY两个Y公用一组UV<br><img src="/github.fy/ffmpeg/4.png"><br>YUV是一种笼统的说法，它也有不同的排列方式</p>
+<ul>
+<li>打包（packed）格式：将YUV<strong>交叉排列并且以像素点为单元</strong>连续的存放在同一数组中</li>
+<li>平面（planar）格式：使用<strong>三个数组分开连续的存放</strong>YUV三个分量</li>
+</ul>
+</li>
+</ul>
+<p>YUV采用A:B:C表示法来描述Y,U,V采样频率比例,下图中黑点表示采样像素点Y分量,<br>空心圆表示采样像素点的UV分量。主要分为 YUV 4:4:4、YUV 4:2:2、YUV 4:2:0 这几种<br><img src="/github.fy/ffmpeg/5.png"><br>4:4:4表示色度频道没有下采样,即一个Y分量对应着一个U分量和一个V分量。<br>4:2:2表示2:1的水平下采样,没有垂直下采样,即每两个Y分量共用一个U分量和一个V分量。<br>4:2:0表示2.1的水平下采样, 2:1 的垂直下采样， 即怎四个Y分量共用一个U一个V</p>
+<h3 id="YUV数据存储"><a href="#YUV数据存储" class="headerlink" title="YUV数据存储"></a>YUV数据存储</h3><h4 id="4-4-4格式"><a href="#4-4-4格式" class="headerlink" title="4:4:4格式"></a>4:4:4格式</h4><p>YUV444p格式，对应ffmpeg像素表示AV_PIX_FMT_YUV444P<br><img src="/github.fy/ffmpeg/6.png"></p>
+<h4 id="4-2-2格式"><a href="#4-2-2格式" class="headerlink" title="4:2:2格式"></a>4:2:2格式</h4><p><img src="/github.fy/ffmpeg/7.png"></p>
+<h4 id="4-2-0格式"><a href="#4-2-0格式" class="headerlink" title="4:2:0格式"></a>4:2:0格式</h4><p><img src="/github.fy/ffmpeg/8.png"></p>
+<h3 id="RGB和YUV的转换"><a href="#RGB和YUV的转换" class="headerlink" title="RGB和YUV的转换"></a>RGB和YUV的转换</h3><p><img src="/github.fy/ffmpeg/9.png"></p>
+<h3 id="YUV-stride对齐问题"><a href="#YUV-stride对齐问题" class="headerlink" title="YUV stride对齐问题"></a>YUV stride对齐问题</h3><p>比如分辨率638x480的YUV420P图像,我们在内存处理的时候如果要以16字节对齐,则<br>638不能被16整除,我们需要在每行尾部填充2个字节。就是640。此时该图片的Y stride<br>为640字节。</p>
+<h2 id="视频的主要概念2"><a href="#视频的主要概念2" class="headerlink" title="视频的主要概念2"></a>视频的主要概念2</h2><p><strong>视频码率</strong>：kb&#x2F;s，是指单位时间内使用的数据流量，也叫码流率。<br>码率越大，说明单位时间内取样率越大，数据流精度就越高<br><strong>视频帧率</strong>：fps，通常说一个视频的25帧，指的就是这个视频帧率，一秒<br>会显示25帧。帧率越高给人的感觉越流畅<br><strong>视频分辨率</strong>：640×480分辨率等</p>
+<h3 id="I-P-B-帧"><a href="#I-P-B-帧" class="headerlink" title="I P B 帧"></a>I P B 帧</h3><p><strong>I帧(Intra coded frames)</strong>:I帧不需要参考其他画面而生成,解码时仅<br>靠自己就重构完整图像;</p>
+<blockquote>
+<p>I帧图像采用帧内编码方式;<br>I帧所占数据的信息量比较大;<br>I帧图像是周期性出现在图像序列中的,出现频率可由编码器选择;<br>I帧是P帧和B帧的参考帧(其质量直接影响到同组中以后各帧的质量);<br>I帧是帧组GOP的基础帧(第一帧),在一组中只有一个1帧;<br>I帧不需要考虑运动矢量;</p>
+</blockquote>
+<p><strong>P帧(Predicted frames)</strong>:根据本帧与相邻的前一帧(1帧或P帧)的<br>不同点来压缩本帧数据,同时利用了空间和时间上的相关性。</p>
+<blockquote>
+<p>P帧属于前向预测的帧间编码。它需要参考前面最靠近它的I帧或P帧<br>来解码。<br><strong>B帧(Bi-directional predicted frames)</strong>:B帧图像采用双向时间预<br>测,可以大大提高压缩倍数。<br><img src="/github.fy/ffmpeg/10.png"></p>
+</blockquote>
+<h2 id="音频常见名词"><a href="#音频常见名词" class="headerlink" title="音频常见名词"></a>音频常见名词</h2><p><img src="/github.fy/ffmpeg/11.png"><br><img src="/github.fy/ffmpeg/12.png"><br><img src="/github.fy/ffmpeg/13.png"></p>
+<h2 id="封装格式的概念"><a href="#封装格式的概念" class="headerlink" title="封装格式的概念"></a>封装格式的概念</h2><p>将已经编码压缩好的视频流、音频流及字幕按照一定的方案放到一个文件当中，便于软件播放</p>
+<p>封装格式不一样，后缀名字也不一样(.mp4.flv)</p>
+<h3 id="常见的封装格式"><a href="#常见的封装格式" class="headerlink" title="常见的封装格式"></a>常见的封装格式</h3><p><img src="/github.fy/ffmpeg/14.png"></p>
+<h3 id="音视频同步基础"><a href="#音视频同步基础" class="headerlink" title="音视频同步基础"></a>音视频同步基础</h3><p><img src="/github.fy/ffmpeg/15.png"></p>
+<h1 id="FFmpeg实战"><a href="#FFmpeg实战" class="headerlink" title="FFmpeg实战"></a>FFmpeg实战</h1><h2 id="FFMPEG如何查看命令帮助文档"><a href="#FFMPEG如何查看命令帮助文档" class="headerlink" title="FFMPEG如何查看命令帮助文档"></a>FFMPEG如何查看命令帮助文档</h2><h3 id="ffmpeg、ffplay、ffprobe区别"><a href="#ffmpeg、ffplay、ffprobe区别" class="headerlink" title="ffmpeg、ffplay、ffprobe区别"></a>ffmpeg、ffplay、ffprobe区别</h3><ul>
+<li>ffmpeg:超快音视频编码器（类似爱剪辑）</li>
+<li>ffplay:简单媒体播放器（设计音视频同步原理）</li>
+<li>ffprobe:简单多媒体流分析器</li>
+</ul>
+<h3 id="ffmpeg命令查看帮助文档"><a href="#ffmpeg命令查看帮助文档" class="headerlink" title="ffmpeg命令查看帮助文档"></a>ffmpeg命令查看帮助文档</h3><ul>
+<li>基本信息：ffmpeg -h</li>
+<li>高级信息：fffmpeg -h long</li>
+<li>所有信息：ffmpeg -h full<br><strong>如果嫌弃打印内容过多可以保存到文件当中：ffmpeg -h full &gt; ffmpeg_h_full.log</strong><br><strong>然后打开ffmpeg_h_full.log查看</strong><br><img src="/github.fy/ffmpeg/15.png"></li>
+</ul>
+<h3 id="ffplay查看帮助文档"><a href="#ffplay查看帮助文档" class="headerlink" title="ffplay查看帮助文档"></a>ffplay查看帮助文档</h3><ul>
+<li>只有: ffplay -h</li>
+<li>usage:<br>  ffplay [options]input_file</li>
+</ul>
+<h3 id="ffprobe查看帮助文档"><a href="#ffprobe查看帮助文档" class="headerlink" title="ffprobe查看帮助文档"></a>ffprobe查看帮助文档</h3><ul>
+<li>也是只有: ffprobe -h</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fylhg.github.io/github.fy">二马山石</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fylhg.github.io/github.fy/2024/11/09/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/">https://fylhg.github.io/github.fy/2024/11/09/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://fylhg.github.io/github.fy" target="_blank">FY的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/github.fy/tags/ffmpeg/">ffmpeg</a></div><div class="post_share"><div class="social-share" data-image="https://so1.360tres.com/t019fc28863fbede04d.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/github.fy/2024/08/05/QT%20-%20add/" title="Qt"><img class="cover" src="https://t8.baidu.com/it/u=4067589254,2956208776&amp;fm=193" onerror="onerror=null;src='/github.fy/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Qt</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/github.fy/img/1.jpg" onerror="this.onerror=null;this.src='/github.fy/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">二马山石</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/github.fy/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/github.fy/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/github.fy/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">音视频基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">音视频录制原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E5%8E%9F%E7%90%86"><span class="toc-number">1.2.</span> <span class="toc-text">音视频播放原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E8%A1%A8%E7%A4%BARGB-YUV"><span class="toc-number">1.3.</span> <span class="toc-text">图像表示RGB-YUV</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%83%8F%E7%B4%A0"><span class="toc-number">1.3.1.</span> <span class="toc-text">像素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E8%BE%A8%E7%8E%87"><span class="toc-number">1.3.2.</span> <span class="toc-text">分辨率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E6%B7%B1"><span class="toc-number">1.3.3.</span> <span class="toc-text">位深</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%A7%E7%8E%87"><span class="toc-number">1.3.4.</span> <span class="toc-text">帧率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%81%E7%8E%87"><span class="toc-number">1.3.5.</span> <span class="toc-text">码率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RGB"><span class="toc-number">1.3.6.</span> <span class="toc-text">RGB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YUV"><span class="toc-number">1.3.7.</span> <span class="toc-text">YUV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YUV%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="toc-number">1.3.8.</span> <span class="toc-text">YUV数据存储</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-4%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.3.8.1.</span> <span class="toc-text">4:4:4格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.3.8.2.</span> <span class="toc-text">4:2:2格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-0%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.3.8.3.</span> <span class="toc-text">4:2:0格式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RGB%E5%92%8CYUV%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.3.9.</span> <span class="toc-text">RGB和YUV的转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YUV-stride%E5%AF%B9%E9%BD%90%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.10.</span> <span class="toc-text">YUV stride对齐问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E7%9A%84%E4%B8%BB%E8%A6%81%E6%A6%82%E5%BF%B52"><span class="toc-number">1.4.</span> <span class="toc-text">视频的主要概念2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#I-P-B-%E5%B8%A7"><span class="toc-number">1.4.1.</span> <span class="toc-text">I P B 帧</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9F%B3%E9%A2%91%E5%B8%B8%E8%A7%81%E5%90%8D%E8%AF%8D"><span class="toc-number">1.5.</span> <span class="toc-text">音频常见名词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.6.</span> <span class="toc-text">封装格式的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.6.1.</span> <span class="toc-text">常见的封装格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9F%B3%E8%A7%86%E9%A2%91%E5%90%8C%E6%AD%A5%E5%9F%BA%E7%A1%80"><span class="toc-number">1.6.2.</span> <span class="toc-text">音视频同步基础</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FFmpeg%E5%AE%9E%E6%88%98"><span class="toc-number">2.</span> <span class="toc-text">FFmpeg实战</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FFMPEG%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3"><span class="toc-number">2.1.</span> <span class="toc-text">FFMPEG如何查看命令帮助文档</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ffmpeg%E3%80%81ffplay%E3%80%81ffprobe%E5%8C%BA%E5%88%AB"><span class="toc-number">2.1.1.</span> <span class="toc-text">ffmpeg、ffplay、ffprobe区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ffmpeg%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3"><span class="toc-number">2.1.2.</span> <span class="toc-text">ffmpeg命令查看帮助文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ffplay%E6%9F%A5%E7%9C%8B%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3"><span class="toc-number">2.1.3.</span> <span class="toc-text">ffplay查看帮助文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ffprobe%E6%9F%A5%E7%9C%8B%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3"><span class="toc-number">2.1.4.</span> <span class="toc-text">ffprobe查看帮助文档</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/github.fy/2024/11/09/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/" title="ffmpeg"><img src="https://so1.360tres.com/t019fc28863fbede04d.png" onerror="this.onerror=null;this.src='/github.fy/img/404.jpg'" alt="ffmpeg"/></a><div class="content"><a class="title" href="/github.fy/2024/11/09/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/" title="ffmpeg">ffmpeg</a><time datetime="2024-11-09T08:09:29.451Z" title="发表于 2024-11-09 16:09:29">2024-11-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/github.fy/2024/08/05/QT%20-%20add/" title="Qt"><img src="https://t8.baidu.com/it/u=4067589254,2956208776&amp;fm=193" onerror="this.onerror=null;this.src='/github.fy/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/github.fy/2024/08/05/QT%20-%20add/" title="Qt">Qt</a><time datetime="2024-08-05T05:59:31.581Z" title="发表于 2024-08-05 13:59:31">2024-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/github.fy/2024/07/31/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE/" title="leetcode"><img src="/github.fy/img/404.jpg" onerror="this.onerror=null;this.src='/github.fy/img/404.jpg'" alt="leetcode"/></a><div class="content"><a class="title" href="/github.fy/2024/07/31/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE/" title="leetcode">leetcode</a><time datetime="2024-07-31T08:42:06.141Z" title="发表于 2024-07-31 16:42:06">2024-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/github.fy/2024/07/21/QT/" title="Qt"><img src="https://t8.baidu.com/it/u=4067589254,2956208776&amp;fm=193" onerror="this.onerror=null;this.src='/github.fy/img/404.jpg'" alt="Qt"/></a><div class="content"><a class="title" href="/github.fy/2024/07/21/QT/" title="Qt">Qt</a><time datetime="2024-07-21T05:50:00.611Z" title="发表于 2024-07-21 13:50:00">2024-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/github.fy/2024/07/12/C++/" title="c++"><img src="https://img2.baidu.com/it/u=1339810107,1799612389&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=512&amp;h=328" onerror="this.onerror=null;this.src='/github.fy/img/404.jpg'" alt="c++"/></a><div class="content"><a class="title" href="/github.fy/2024/07/12/C++/" title="c++">c++</a><time datetime="2024-07-12T07:18:51.931Z" title="发表于 2024-07-12 15:18:51">2024-07-12</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://so1.360tres.com/t019fc28863fbede04d.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 二马山石</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat-btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/github.fy/js/utils.js?v=4.13.0"></script><script src="/github.fy/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script id="canvas_nest" defer="defer" color="(0,205,205)" opacity="0.7" zIndex="-1" count="99" mobile="true" src="/github.fy/%5Bobject%20Object%5D"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
